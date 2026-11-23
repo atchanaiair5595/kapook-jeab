@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>กระปุกเจี๊ยบ</title>
+<meta name="theme-color" content="#FFD65C">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&display=swap">
+<style>
+/* Layout: one phone-width column — yellow header band, cream page, rounded white cards, fixed pill tab bar with a raised + button */
+:root{
+  --bg:#FFF6DE; --band:#FFD65C; --card:#FFFFFF; --soft:#FFF0C4; --line:#F0DDA8;
+  --ink:#5B2F1F; --muted:#957559; --accent:#FFC83A; --accent-ink:#4A2414;
+  --good:#4E9A4A; --good-soft:#E2F2DD; --bad:#D04B45; --bad-soft:#FBE1DD;
+  --sky:#4FA9DF; --sky-soft:#DCEFFB; --pink:#EE86B0; --lav:#A88BDC;
+  --shadow:0 1px 0 rgba(91,47,31,.05),0 8px 20px rgba(190,140,30,.12);
+  --f-display:'Mali','IBM Plex Sans Thai Looped','Noto Sans Thai',system-ui,sans-serif;
+  --f-body:'IBM Plex Sans Thai Looped','Noto Sans Thai','Leelawadee UI',system-ui,sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1E1913; --band:#5A4513; --card:#2A231B; --soft:#362C1F; --line:#4A3D2A;
+  --ink:#F7E9D2; --muted:#BDA787; --accent:#F2C24A; --accent-ink:#2B1A0D;
+  --good:#8BCB83; --good-soft:#26361F; --bad:#F08A80; --bad-soft:#3E2420;
+  --sky:#86C8F0; --sky-soft:#1F3341; --pink:#F2A2C3; --lav:#C3ACEC;
+  --shadow:0 1px 0 rgba(0,0,0,.2),0 8px 20px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1E1913; --band:#5A4513; --card:#2A231B; --soft:#362C1F; --line:#4A3D2A;
+  --ink:#F7E9D2; --muted:#BDA787; --accent:#F2C24A; --accent-ink:#2B1A0D;
+  --good:#8BCB83; --good-soft:#26361F; --bad:#F08A80; --bad-soft:#3E2420;
+  --sky:#86C8F0; --sky-soft:#1F3341; --pink:#F2A2C3; --lav:#C3ACEC;
+  --shadow:0 1px 0 rgba(0,0,0,.2),0 8px 20px rgba(0,0,0,.25); color-scheme:dark}
+
+html,body{margin:0}
+:root{padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.25}
+#app{max-width:560px;margin:0 auto;min-height:100%;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+
+/* header band */
+.top{background:var(--band);border-radius:0 0 34px 34px;padding-block:14px 30px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));position:relative}
+.top-row{display:flex;align-items:center;gap:10px;min-height:44px}
+.back{width:42px;height:42px;border-radius:50%;border:0;background:rgba(91,47,31,.12);display:grid;place-items:center;cursor:pointer;flex:none}
+.back svg{width:22px;height:22px}
+.top h1{font-size:clamp(24px,7vw,32px);font-weight:700;flex:1;min-width:0;color:var(--ink)}
+.sync{color:inherit;text-decoration:none;font-size:12px;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.55);white-space:nowrap}
+:root[data-theme="dark"] .sync{background:rgba(0,0,0,.25)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sync{background:rgba(0,0,0,.25)}}
+.chick{width:58px;height:58px;flex:none}
+.sub{color:var(--ink);opacity:.8;font-size:14px;min-width:0}
+.sub-row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+
+main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));margin-top:-18px;display:flex;flex-direction:column;gap:14px;position:relative}
+.card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:19px;font-weight:600;display:flex;align-items:center;gap:8px}
+.card h2 .grow{flex:1}
+.hint{color:var(--muted);font-size:13px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--soft);border-radius:14px;padding:10px 8px;text-align:center;min-width:0}
+.stat b{display:block;font-size:17px;font-variant-numeric:tabular-nums;word-break:break-word}
+.stat span{font-size:12px;color:var(--muted)}
+.in{color:var(--good)} .out{color:var(--bad)}
+
+/* buttons & inputs */
+.btn{border:0;border-radius:99px;padding:10px 16px;background:var(--soft);cursor:pointer;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px}
+.btn.pri{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.ghost{background:transparent;border:1.5px solid var(--line)}
+.btn.danger{background:var(--bad-soft);color:var(--bad)}
+.btn.sm{min-height:34px;padding:6px 12px;font-size:13px}
+.btn.full{width:100%}
+.btn:focus-visible,.chip:focus-visible,.slot:focus-visible,.tile:focus-visible,.cat:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);min-width:0}
+input[type=text],input[type=number],input[type=date],input[type=time],input[type=month],select,textarea{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;min-height:44px;color:var(--ink)}
+textarea{min-height:80px;resize:vertical}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:14px}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.seg{display:flex;background:var(--soft);border-radius:99px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:transparent;border-radius:99px;padding:8px;cursor:pointer;font-weight:500}
+.seg button.on{background:var(--card);box-shadow:var(--shadow)}
+.seg.money button.on.o{background:var(--bad-soft);color:var(--bad)}
+.seg.money button.on.i{background:var(--good-soft);color:var(--good)}
+.pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:99px;background:var(--soft)}
+.pill.good{background:var(--good-soft);color:var(--good)} .pill.bad{background:var(--bad-soft);color:var(--bad)} .pill.sky{background:var(--sky-soft);color:var(--sky)}
+
+/* list */
+.list{display:flex;flex-direction:column}
+.li{display:flex;gap:10px;align-items:center;padding:10px 2px;border-top:1px dashed var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;width:100%}
+.li:first-child{border-top:0}
+.ic{width:40px;height:40px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:21px;flex:none}
+.li .t{flex:1;min-width:0}
+.li .t b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .t small{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.amt{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dayhead{font-size:13px;color:var(--muted);margin:10px 0 0;font-weight:500}
+
+/* bubbles */
+.bubbles{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;padding:6px 0}
+.bub{border-radius:50%;display:grid;place-items:center;text-align:center;line-height:1.15;font-size:12px;padding:4px}
+.bub i{font-style:normal;font-size:1.35em;display:block}
+.bub b{font-variant-numeric:tabular-nums;font-size:12px}
+
+/* category grid */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.cat{border:1.5px solid transparent;background:var(--soft);border-radius:16px;padding:8px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;line-height:1.2;min-height:70px}
+.cat i{font-style:normal;font-size:24px}
+.cat.on{border-color:var(--accent);background:var(--card);box-shadow:var(--shadow);font-weight:600}
+
+/* savings grid */
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px}
+.slot{aspect-ratio:1;max-width:100%;border-radius:50%;border:2px dashed var(--line);background:var(--card);font-size:12px;font-weight:600;cursor:pointer;position:relative;color:var(--muted);font-variant-numeric:tabular-nums;padding:0}
+.slot.on{background:var(--sky-soft);border:2px solid var(--sky);color:var(--sky)}
+.slot.on::before,.slot.on::after{content:"";position:absolute;left:14%;right:14%;top:50%;height:5px;border-radius:5px;background:var(--pink);transform:rotate(45deg);opacity:.92}
+.slot.on::after{transform:rotate(-45deg)}
+.bar{height:12px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar>span{display:block;height:100%;background:var(--sky);border-radius:99px}
+.bar.y>span{background:var(--accent)} .bar.p>span{background:var(--pink)} .bar.g>span{background:var(--good)}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{background:var(--card);border:0;border-radius:18px;padding:14px 6px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;text-decoration:none;color:inherit;font-size:13px;text-align:center;line-height:1.25}
+.tile i{font-style:normal;font-size:30px}
+.tile.soon{opacity:.55;cursor:default;box-shadow:none;background:var(--soft)}
+.tile small{color:var(--muted);font-size:11px}
+
+/* calculator results */
+.opt{border:1.5px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.opt.best{border-color:var(--good);background:var(--good-soft)}
+.res{border-radius:16px;padding:12px;background:var(--soft)}
+.res.warn{background:var(--bad-soft)}
+.big{font-family:var(--f-display);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* people */
+.person{display:flex;flex-direction:column;gap:10px}
+.owe{font-family:var(--f-display);font-size:24px;font-weight:700}
+.msg{white-space:pre-wrap;background:var(--soft);border-radius:16px;padding:14px;font-family:var(--f-body);font-size:14px;line-height:1.6;margin:0;user-select:text;-webkit-user-select:text;word-break:break-word}
+.entry{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px dashed var(--line)}
+.entry:first-child{border-top:0}
+.entry .t{flex:1;min-width:0}
+.entry input[type=checkbox]{width:22px;height:22px;accent-color:var(--good);flex:none}
+.x{border:0;background:var(--bad-soft);color:var(--bad);border-radius:50%;width:30px;height:30px;cursor:pointer;flex:none}
+.slip{max-width:100%;border-radius:14px;border:1.5px solid var(--line)}
+
+/* gauge */
+.gauge{display:flex;align-items:center;gap:16px}
+.gauge svg{width:120px;height:120px;flex:none}
+.factor{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:13px}
+
+/* tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px));padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:5;pointer-events:none}
+.tabbar .in-bar{max-width:540px;margin:0 auto;background:var(--card);border-radius:28px;box-shadow:0 -2px 18px rgba(120,80,20,.14);display:grid;grid-template-columns:repeat(5,1fr);align-items:end;padding:6px 4px;pointer-events:auto}
+.tab{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:12px;color:var(--muted);cursor:pointer;padding:4px 0;text-decoration:none}
+.tab i{font-style:normal;font-size:22px;filter:grayscale(.5);opacity:.85}
+.tab.on{color:var(--ink);font-weight:600}
+.tab.on i{filter:none;opacity:1}
+.tab.on::after{content:"";width:22px;height:3px;border-radius:3px;background:var(--accent);margin-top:2px}
+.plus{width:62px;height:62px;border-radius:50%;background:var(--accent);color:var(--accent-ink);border:5px solid var(--card);font-size:32px;font-weight:600;margin:-28px auto 0;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 14px rgba(200,140,20,.35);line-height:1}
+
+/* sheet */
+#sheet{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.scrim{position:absolute;inset:0;background:rgba(40,22,10,.42)}
+.panel{position:relative;background:var(--bg);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:28px 28px 0 0;padding-block:8px calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}
+.grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:4px auto 2px}
+.sheet-h{display:flex;align-items:center;gap:10px}
+.sheet-h h3{font-size:22px;flex:1}
+.close{border:0;background:var(--soft);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(100px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;z-index:30;font-size:14px;max-width:calc(100% - 32px);text-align:center}
+.note{background:var(--sky-soft);border-radius:14px;padding:10px 12px;font-size:13px}
+.note.warn{background:var(--bad-soft)}
+.empty{text-align:center;color:var(--muted);padding:18px 8px}
+.empty i{font-style:normal;font-size:34px;display:block}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl td{padding:6px 2px;border-top:1px dashed var(--line)}
+.tbl td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+details summary{cursor:pointer;font-weight:500}
+@media (max-width:380px){.cats{grid-template-columns:repeat(3,1fr)}.tiles{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:no-preference){.panel{animation:up .22s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="top-row">
+      <button class="back" id="backBtn" data-act="back" aria-label="กลับ" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <h1 id="title">กระปุกเจี๊ยบ</h1>
+      <svg class="chick" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="58" rx="16" ry="3" fill="rgba(91,47,31,.15)"/><path d="M31 9c2-5 7-6 8-3-3 0-5 2-5 4" fill="#F3A33A"/><circle cx="32" cy="34" r="22" fill="#FFF3B0" stroke="#5B2F1F" stroke-width="2.4"/><path d="M14 38c-5 1-7 6-5 9 4-1 6-4 7-7" fill="#FFE57A" stroke="#5B2F1F" stroke-width="2"/><path d="M50 38c5 1 7 6 5 9-4-1-6-4-7-7" fill="#FFE57A" stroke="#5B2F1F" stroke-width="2"/><circle cx="24.5" cy="31" r="2.8" fill="#5B2F1F"/><circle cx="39.5" cy="31" r="2.8" fill="#5B2F1F"/><circle cx="25.5" cy="30" r=".9" fill="#fff"/><circle cx="40.5" cy="30" r=".9" fill="#fff"/><path d="M28 36l4 4 4-4z" fill="#F38A2E" stroke="#5B2F1F" stroke-width="1.6" stroke-linejoin="round"/><circle cx="19" cy="37" r="3" fill="#F7A6B8" opacity=".8"/><circle cx="45" cy="37" r="3" fill="#F7A6B8" opacity=".8"/></svg>
+    </div>
+    <div class="sub-row"><div class="sub" id="subtitle"></div><a class="sync" id="sync" href="#gsheet">กำลังเปิด…</a></div>
+  </header>
+  <main id="main"></main>
+</div>
+
+<nav class="tabbar" aria-label="เมนูหลัก">
+  <div class="in-bar">
+    <a class="tab" href="#home" data-tab="home"><i>🏠</i>หน้าแรก</a>
+    <a class="tab" href="#ledger" data-tab="ledger"><i>📒</i>บัญชี</a>
+    <div><button class="plus" data-act="addTx" aria-label="เพิ่มรายการ">+</button></div>
+    <a class="tab" href="#people" data-tab="people"><i>🤝</i>จ่ายเงินคน</a>
+    <a class="tab" href="#menu" data-tab="menu"><i>🧺</i>เมนู</a>
+  </div>
+</nav>
+
+<div id="sheet" hidden><div class="scrim" data-act="close"></div><div class="panel" role="dialog" aria-modal="true"><div class="grab"></div><div id="sheetBody" class="stack"></div></div></div>
+<div id="toast" hidden></div>
+
+<script>
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const pad=n=>String(n).padStart(2,'0');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=v=>{const n=parseFloat(String(v??'').replace(/,/g,''));return isFinite(n)?n:0};
+const fmt=(n,d=2)=>(Math.round((+n||0)*100)/100).toLocaleString('th-TH',{maximumFractionDigits:d});
+const baht=n=>fmt(n)+' บาท';
+const TH_M=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const TH_MF=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const nowT=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+const ymOf=s=>s.slice(0,7);
+const dTH=s=>{if(!s)return'';const[y,m,d]=s.split('-').map(Number);return `${d} ${TH_M[m-1]} ${String(y+543).slice(-2)}`};
+const dTHnoY=s=>{const[,m,d]=s.split('-').map(Number);return `${d} ${TH_M[m-1]}`};
+const mTH=ym=>{const[y,m]=ym.split('-').map(Number);return `${TH_MF[m-1]} ${y+543}`};
+const shiftYM=(ym,k)=>{const[y,m]=ym.split('-').map(Number);const d=new Date(y,m-1+k,1);return d.getFullYear()+'-'+pad(d.getMonth()+1)};
+const lastDay=ym=>{const[y,m]=ym.split('-').map(Number);return ym+'-'+pad(new Date(y,m,0).getDate())};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function toast(t){const el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2400)}
+
+const CATS={
+ out:[['food','อาหาร','🍚'],['market','กับข้าว/ตลาด','🥬'],['drink','เครื่องดื่ม/กาแฟ','🧋'],['fuel','น้ำมันรถ','⛽'],['travel','ค่าเดินทาง','🚌'],['home','ของใช้ในบ้าน','🧺'],['util','ค่าน้ำไฟ','💡'],['phone','โทรศัพท์/เน็ต','📱'],['edu','การศึกษา','🎒'],['kids','ค่าขนมลูก','🍬'],['wage','ค่าแรง','👷'],['tools','อุปกรณ์/อะไหล่งาน','🧰'],['pets','สัตว์เลี้ยง/สวน','🐢'],['health','สุขภาพ','💊'],['debt','ผ่อน/ใช้หนี้','📆'],['repay','คืนเงินที่ยืม','🤝'],['save','เงินออม','🐷'],['fun','กินนอกบ้าน/เที่ยว','🎡'],['other','อื่นๆ','📦']],
+ in:[['shop','งานร้านแอร์','❄️'],['live','ไลฟ์ดูดวง','🔮'],['web','งานเว็บ/สื่อ','💻'],['scrap','ขายขวด/ของเก่า','♻️'],['gift','ได้รับ/ของขวัญ','🎁'],['loan','เงินที่ยืมมา','🏧'],['otherin','รายได้อื่น','💰']]
+};
+const CAT={};for(const t of ['out','in'])for(const[c,n,i]of CATS[t])CAT[c]={n,i,t};
+CAT.move={n:'ย้ายเงิน',i:'🔁',t:'move'};
+const BUBC=['var(--pink)','var(--sky)','var(--accent)','var(--lav)','var(--good)'];
+
+/* ---------- data store: phone first (IndexedDB), then Google Sheet when online ---------- */
+const LS='kapook-jeab-cache-v1', MK='kapook-jeab-meta-v1';
+const S={docs:{},mode:'loading',idb:false,syncing:false};
+const DEF={
+ settings:{wallets:[{id:'cash',name:'เงินสด',icon:'👛',open:0},{id:'bank',name:'บัญชีธนาคารหลัก',icon:'🏦',open:0},{id:'shop',name:'กระเป๋าร้านแอร์',icon:'❄️',open:0}],main:'bank'},
+ savings:{goals:[]}, people:{list:[]}, debts:{list:[]}, recon:{m:{}}, slips:{map:{}}
+};
+function D(id){if(!S.docs[id])S.docs[id]=structuredClone(DEF[id]||(id.startsWith('tx-')?{items:[]}:id.startsWith('pay-')?{entries:[],payments:[]}:{}));return S.docs[id]}
+const IDB={db:null,
+  open(){return new Promise((res,rej)=>{const r=indexedDB.open('kapook-jeab',1);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('docs'))d.createObjectStore('docs');if(!d.objectStoreNames.contains('blobs'))d.createObjectStore('blobs')};r.onsuccess=()=>{IDB.db=r.result;res()};r.onerror=()=>rej(r.error)})},
+  st(n,m){return IDB.db.transaction(n,m).objectStore(n)},
+  all(n){return new Promise((res,rej)=>{const out={};const c=IDB.st(n,'readonly').openCursor();c.onsuccess=()=>{const k=c.result;if(k){out[k.key]=k.value;k.continue()}else res(out)};c.onerror=()=>rej(c.error)})},
+  keys(n){return new Promise((res,rej)=>{const r=IDB.st(n,'readonly').getAllKeys();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})},
+  get(n,key){return new Promise((res,rej)=>{const r=IDB.st(n,'readonly').get(key);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+  put(n,key,v){return new Promise((res,rej)=>{const r=IDB.st(n,'readwrite').put(v,key);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})},
+  clear(n){return new Promise((res,rej)=>{const r=IDB.st(n,'readwrite').clear();r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+};
+/* sync bookkeeping: which documents still wait to go up, the Sheet link, and the last server time we saw */
+let META={outbox:{},since:0,conn:null,last:0,lastErr:''};
+try{META=Object.assign(META,JSON.parse(localStorage.getItem(MK)||'{}'))}catch(e){}
+function saveMeta(){try{localStorage.setItem(MK,JSON.stringify(META))}catch(e){}}
+function cache(){if(S.idb)return;try{localStorage.setItem(LS,JSON.stringify(S.docs))}catch(e){toast('พื้นที่ในเครื่องเต็ม ลองสำรองข้อมูลแล้วลบรูปเก่า')}}
+function persist(id){
+  if(!S.idb){cache();return}
+  IDB.put('docs',id,JSON.parse(JSON.stringify(S.docs[id]||{}))).catch(()=>toast('บันทึกไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม'));
+}
+function save(id){
+  const d=S.docs[id];if(d)d._u=Math.max(Date.now(),(d._u||0)+1);
+  persist(id);META.outbox[id]=1;saveMeta();setSync();schedSync();
+}
+const pendingCount=()=>Object.keys(META.outbox).length;
+function setSync(){
+  const el=$('#sync');if(!el)return;const n=pendingCount();let t;
+  if(S.mode==='loading')t='กำลังเปิด…';
+  else if(!META.conn)t='📱 เก็บในเครื่องนี้';
+  else if(S.syncing)t='🔄 กำลังซิงก์…';
+  else if(!navigator.onLine)t='📴 ออฟไลน์'+(n?` · รอส่ง ${n}`:'');
+  else if(META.lastErr)t='⚠️ ซิงก์ไม่สำเร็จ';
+  else if(n)t=`⏳ รอส่ง ${n}`;
+  else t='✅ ซิงก์กับ Sheet แล้ว';
+  el.textContent=t;
+}
+window.addEventListener('online',()=>{setSync();schedSync(500)});window.addEventListener('offline',setSync);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')schedSync(500)});
+setInterval(()=>{if(document.visibilityState==='visible')schedSync(0)},180000);
+let dirty=false;
+function softRender(){if(!$('#sheet').hidden){dirty=true;return}const a=document.activeElement;if(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)&&$('#main').contains(a)){dirty=true;return}render()}
+
+const ERRTH={
+  bad_key:'รหัสลับไม่ตรงกับใน Google Sheet ลองคัดลอกใหม่จากเมนู 🐣 กระปุกเจี๊ยบ ในชีต',
+  not_setup:'ยังไม่ได้กด “ตั้งค่าครั้งแรก” ในเมนู 🐣 กระปุกเจี๊ยบ ของ Google Sheet',
+  not_json:'ลิงก์ไม่ถูก หรือตอน Deploy ยังไม่ได้เลือก “ผู้ที่มีสิทธิ์เข้าถึง: ทุกคน (Anyone)”',
+  network:'ติดต่อ Google ไม่ได้ ตรวจเน็ต หรือดูว่าลิงก์ถูกต้อง',
+  server:'Google Sheet ตอบกลับผิดพลาด ลองใหม่อีกครั้ง'
+};
+const errText=e=>ERRTH[e&&e.message]||ERRTH.network;
+async function api(body,conn){
+  conn=conn||META.conn;
+  let r;
+  try{r=await fetch(conn.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},body,{key:conn.key})),redirect:'follow'})}
+  catch(e){throw new Error('network')}
+  const txt=await r.text();let j;
+  try{j=JSON.parse(txt)}catch(e){throw new Error('not_json')}
+  if(!j.ok)throw new Error(j.error||'server');
+  return j;
+}
+const catNames=()=>{const o={};for(const k in CAT)o[k]=CAT[k].n;return o};
+let syncTimer=null;
+function schedSync(ms){if(!META.conn)return;clearTimeout(syncTimer);syncTimer=setTimeout(()=>syncNow(),ms??2500)}
+async function syncNow(opts={}){
+  if(!META.conn||S.syncing)return false;
+  if(!navigator.onLine){setSync();return false}
+  S.syncing=true;setSync();let ok=false;
+  try{
+    const push=Object.keys(META.outbox).filter(id=>S.docs[id]).map(id=>({id,u:S.docs[id]._u||Date.now(),data:JSON.stringify(S.docs[id])}));
+    const sent={};push.forEach(p=>sent[p.id]=p.u);
+    const res=await api({action:'sync',since:opts.full?0:META.since,push,cats:catNames()});
+    for(const id of res.accepted||[])if(!S.docs[id]||S.docs[id]._u===sent[id])delete META.outbox[id];
+    for(const id of Object.keys(META.outbox))if(!S.docs[id])delete META.outbox[id];
+    let changed=false;
+    for(const d of res.docs||[]){
+      const local=S.docs[d.id];
+      if(META.outbox[d.id]&&local&&(local._u||0)>=d.u)continue;
+      let body;try{body=JSON.parse(d.data)}catch(e){continue}
+      delete META.outbox[d.id];
+      if(local&&JSON.stringify(local)===d.data)continue;
+      S.docs[d.id]=body;persist(d.id);changed=true;
+    }
+    META.since=res.now;META.last=Date.now();META.lastErr='';saveMeta();ok=true;
+    if(changed)softRender();
+    await uploadSlips();
+  }catch(e){META.lastErr=errText(e);saveMeta()}
+  finally{S.syncing=false;setSync();if(route()==='gsheet')softRender()}
+  if(ok&&pendingCount())schedSync(1500);
+  return ok;
+}
+/* slip photos: kept on the phone, copied to the Google Drive folder when online */
+async function uploadSlips(){
+  if(!S.idb||!META.conn)return;
+  const sl=D('slips');sl.map=sl.map||{};
+  let keys=[];try{keys=await IDB.keys('blobs')}catch(e){return}
+  for(const id of keys){
+    if(sl.map[id])continue;
+    const b=await IDB.get('blobs',id);if(!b)continue;
+    const b64=(await blobToDataURL(b)).split(',')[1];
+    try{const r=await api({action:'slip',id,mime:b.type||'image/jpeg',b64});sl.map[id]={fid:r.fid,url:r.url};save('slips')}
+    catch(e){break}
+  }
+}
+async function initStore(){
+  try{
+    await IDB.open();S.idb=true;
+    const d=await IDB.all('docs');
+    if(Object.keys(d).length)S.docs=d;
+    else{let old={};try{old=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){}if(Object.keys(old).length){S.docs=old;Object.keys(old).forEach(save)}}
+  }catch(e){S.idb=false;try{S.docs=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e2){S.docs={}}}
+  try{if(navigator.storage&&navigator.storage.persist){S.persisted=await navigator.storage.persisted();if(!S.persisted)S.persisted=await navigator.storage.persist()}}catch(e){}
+  S.mode='ready';setSync();render();schedSync(300);
+}
+const BLOBURL={};
+async function slipURL(id){
+  if(BLOBURL[id])return BLOBURL[id];
+  try{const b=S.idb?await IDB.get('blobs',id):null;if(b){BLOBURL[id]=URL.createObjectURL(b);return BLOBURL[id]}}catch(e){}
+  const m=(S.docs.slips&&S.docs.slips.map||{})[id];
+  return m&&m.fid?`https://drive.google.com/thumbnail?id=${encodeURIComponent(m.fid)}&sz=w1200`:'';
+}
+function hydrateSlips(root){(root||document).querySelectorAll('img[data-slip]').forEach(async im=>{
+  const id=im.dataset.slip;const u=await slipURL(id);const m=(S.docs.slips&&S.docs.slips.map||{})[id];
+  const fallback=()=>{if(m&&m.url){const a=document.createElement('a');a.href=m.url;a.target='_blank';a.rel='noopener';a.className='btn ghost';a.textContent='เปิดรูปสลิปใน Google Drive';im.replaceWith(a)}else im.alt='ไม่พบรูปในเครื่องนี้'};
+  if(u){im.onerror=fallback;im.src=u}else fallback();
+})}
+/* ---------- derived data ---------- */
+const settings=()=>D('settings');
+const wallets=()=>settings().wallets;
+const wName=id=>(wallets().find(w=>w.id===id)||{name:'?'}).name;
+const wIcon=id=>(wallets().find(w=>w.id===id)||{icon:'👛'}).icon;
+function allTx(){return Object.keys(S.docs).filter(k=>k.startsWith('tx-')).flatMap(k=>S.docs[k].items||[])}
+function addTx(t){const d=D('tx-'+ymOf(t.date));t.id=t.id||uid();d.items.push(t);save('tx-'+ymOf(t.date));return t}
+function delTx(id){for(const k of Object.keys(S.docs))if(k.startsWith('tx-')){const it=S.docs[k].items||[];const i=it.findIndex(t=>t.id===id);if(i>=0){it.splice(i,1);save(k);return}}}
+function monthStats(ym,wallet='all'){
+  const items=(S.docs['tx-'+ym]||{items:[]}).items.filter(t=>t.type!=='move'&&(wallet==='all'||t.wallet===wallet));
+  let i=0,o=0;const by={};
+  for(const t of items){if(t.type==='in')i+=num(t.amt);else{o+=num(t.amt);by[t.cat]=(by[t.cat]||0)+num(t.amt)}}
+  return{i,o,net:i-o,by,items};
+}
+function balanceAt(wid,date){
+  const w=wallets().find(x=>x.id===wid);let b=num(w&&w.open);
+  for(const t of allTx()){if(t.date>date)continue;const a=num(t.amt);
+    if(t.type==='in'&&t.wallet===wid)b+=a;else if(t.type==='out'&&t.wallet===wid)b-=a;
+    else if(t.type==='move'){if(t.wallet===wid)b-=a;if(t.to===wid)b+=a}}
+  return b;
+}
+function allEntries(){return Object.keys(S.docs).filter(k=>k.startsWith('pay-')).flatMap(k=>S.docs[k].entries||[])}
+function allPayments(){return Object.keys(S.docs).filter(k=>k.startsWith('pay-')).flatMap(k=>S.docs[k].payments||[])}
+const people=()=>D('people').list;
+const person=id=>people().find(p=>p.id===id);
+function unpaid(pid){return allEntries().filter(e=>e.pid===pid&&!e.paid).sort((a,b)=>a.date.localeCompare(b.date))}
+const owed=pid=>unpaid(pid).reduce((s,e)=>s+num(e.amt),0);
+const KIND={work:{n:'ค่าแรง',i:'🛠'},borrow:{n:'เงินที่ยืมเขามา',i:'💸'},allow:{n:'ค่าขนม',i:'🍬'}};
+
+/* ---------- UI state ---------- */
+const ST={
+  LM:ymOf(today()),LW:'all',PG:'worker',open:{},
+  VC:{items:[{name:'ซื้อทีละชิ้น',price:'',size:'',qty:'1',unit:'g'},{name:'ยกแพ็ค/ยกโหล',price:'',size:'',qty:'',unit:'g'}],food:false,use:'',shelf:''},
+  LC:{principal:'10000',deduct:'1000',inst:'500',n:'23',freq:'1'},
+  DX:{extra:'0'},RP:ymOf(today())
+};
+function setPath(path,val){const p=path.split('.');let o=ST;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=val}
+
+/* ---------- routing / chrome ---------- */
+const VIEW_META={
+  home:{t:'กระปุกเจี๊ยบ'},ledger:{t:'บัญชีรายรับจ่าย'},people:{t:'จ่ายเงินคน'},menu:{t:'เมนูทั้งหมด'},
+  savings:{t:'ตารางออมเงิน',back:1},debt:{t:'หนี้ & ดอกเบี้ย',back:1},report:{t:'รายงาน & พร้อมกู้',back:1},
+  value:{t:'คุ้มไหม?',back:1},wallets:{t:'กระเป๋าเงิน',back:1},backup:{t:'สำรองข้อมูล',back:1},gsheet:{t:'Google Sheet',back:1}
+};
+function route(){const h=(location.hash||'#home').slice(1);return VIEW_META[h]?h:'home'}
+function render(){
+  dirty=false;
+  const v=route();const meta=VIEW_META[v];
+  $('#title').textContent=meta.t;$('#backBtn').hidden=!meta.back;
+  $('#subtitle').textContent=SUB[v]?SUB[v]():'';
+  document.querySelectorAll('.tab').forEach(a=>a.classList.toggle('on',a.dataset.tab===v||(meta.back&&a.dataset.tab==='menu')));
+  $('#main').innerHTML=VIEWS[v]();
+  (AFTER[v]||(()=>{}))();
+  hydrateSlips($('#main'));
+}
+window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
+
+const SUB={
+  home:()=>{const h=new Date().getHours();return (h<11?'อรุณสวัสดิ์ค่ะ':h<17?'สวัสดีตอนบ่ายค่ะ':'สวัสดีตอนเย็นค่ะ')+' · '+dTH(today())},
+  ledger:()=>mTH(ST.LM),people:()=>'ค่าแรง · ค่าขนม · เงินที่ยืมเขา',menu:()=>'เลือกเครื่องมือที่อยากใช้',
+  savings:()=>'แตะช่องที่ฝากแล้ว ให้เจี๊ยบกากบาทให้',debt:()=>'รู้ทันดอกเบี้ย วางแผนปลดหนี้',report:()=>'สรุปประจำเดือนและคะแนนความพร้อม',
+  value:()=>'ซื้อแบบไหนถูกกว่ากัน',wallets:()=>'ยอดตั้งต้นและบัญชีหลัก',backup:()=>'เก็บสำเนาข้อมูลไว้กันหาย',gsheet:()=>'ซิงก์ข้อมูลกับชีตของคุณ'
+};
+
+/* ---------- views ---------- */
+const VIEWS={},AFTER={};
+
+function bubblesHTML(by){
+  const arr=Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  if(!arr.length)return `<div class="empty"><i>🫧</i>ยังไม่มีรายจ่ายเดือนนี้</div>`;
+  const max=arr[0][1];
+  return `<div class="bubbles">${arr.map(([c,v],k)=>{const s=Math.round(58+84*Math.sqrt(v/max));const col=BUBC[k%BUBC.length];
+    return `<div class="bub" style="width:${s}px;height:${s}px;background:color-mix(in srgb,${col} 30%,var(--card));font-size:${s>100?13:11}px"><div><i>${CAT[c]?.i||'📦'}</i>${esc(CAT[c]?.n||c)}<br><b>${fmt(v,0)}</b></div></div>`}).join('')}</div>`;
+}
+function txRow(t){
+  const c=CAT[t.cat]||CAT.other;const sign=t.type==='in'?'+':t.type==='out'?'−':'';
+  const sub=t.type==='move'?`${wName(t.wallet)} → ${wName(t.to)}`:`${wIcon(t.wallet)} ${wName(t.wallet)}${t.note?' · '+t.note:''}`;
+  return `<button class="li" data-act="txOpen" data-id="${t.id}"><span class="ic">${c.i}</span><span class="t"><b>${esc(t.type==='move'?'ย้ายเงิน':c.n)}</b><small>${esc(sub)}</small></span><span class="amt ${t.type==='in'?'in':t.type==='out'?'out':''}">${sign}${fmt(t.amt)}</span></button>`;
+}
+
+VIEWS.home=()=>{
+  const m=ymOf(today());const st=monthStats(m);
+  const lb=settings().lastBackup;const needBk=allTx().length>0&&(!lb||(Date.now()-new Date(lb+'T00:00'))>30*864e5);
+  const owe=people().reduce((s,p)=>s+owed(p.id),0);
+  const goals=D('savings').goals;const saved=goals.reduce((s,g)=>s+goalSaved(g),0);
+  const recent=allTx().sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)).slice(0,5);
+  return `${needBk?`<a class="note warn" href="#backup" style="color:inherit;text-decoration:none">💾 ${lb?'ไม่ได้สำรองข้อมูลมากกว่า 30 วันแล้ว':'ยังไม่เคยสำรองข้อมูล'} แตะเพื่อสำรองเก็บไว้ใน Google Drive</a>`:''}
+  <section class="card stack">
+    <div class="between"><h2>เดือน${TH_MF[+m.slice(5)-1]}</h2><a class="btn sm ghost" href="#report">ดูรายงาน</a></div>
+    <div class="grid3"><div class="stat"><span>รายรับ</span><b class="in">${fmt(st.i,0)}</b></div><div class="stat"><span>รายจ่าย</span><b class="out">${fmt(st.o,0)}</b></div><div class="stat"><span>คงเหลือ</span><b>${fmt(st.net,0)}</b></div></div>
+    ${bubblesHTML(st.by)}
+  </section>
+  ${valueCard(true)}
+  <section class="grid3">
+    <a class="tile" href="#people"><i>🤝</i>ค้างจ่ายคน<b class="num">${fmt(owe,0)}</b><small>บาท</small></a>
+    <a class="tile" href="#savings"><i>🐷</i>ออมแล้ว<b class="num">${fmt(saved,0)}</b><small>บาท</small></a>
+    <a class="tile" href="#report"><i>🏦</i>พร้อมกู้<b class="num">${readiness().score}</b><small>คะแนน</small></a>
+  </section>
+  <section class="card"><div class="between"><h2>รายการล่าสุด</h2><a class="btn sm ghost" href="#ledger">ทั้งหมด</a></div>
+    <div class="list">${recent.length?recent.map(txRow).join(''):`<div class="empty"><i>📝</i>แตะปุ่ม + ด้านล่าง เพื่อบันทึกรายการแรก</div>`}</div></section>`;
+};
+AFTER.home=()=>vcOut();
+
+VIEWS.ledger=()=>{
+  const st=monthStats(ST.LM,ST.LW);
+  const items=(S.docs['tx-'+ST.LM]||{items:[]}).items.filter(t=>ST.LW==='all'||t.wallet===ST.LW||t.to===ST.LW).slice().sort((a,b)=>(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')));
+  let last='',rows='';
+  for(const t of items){if(t.date!==last){last=t.date;rows+=`<div class="dayhead">${dTH(t.date)}</div>`}rows+=txRow(t)}
+  return `
+  <section class="card stack">
+    <div class="between"><button class="btn sm" data-act="lm" data-k="-1" aria-label="เดือนก่อน">‹</button><h2>${mTH(ST.LM)}</h2><button class="btn sm" data-act="lm" data-k="1" aria-label="เดือนถัดไป">›</button></div>
+    <div class="chips"><button class="chip ${ST.LW==='all'?'on':''}" data-act="lw" data-w="all">ทุกกระเป๋า</button>${wallets().map(w=>`<button class="chip ${ST.LW===w.id?'on':''}" data-act="lw" data-w="${w.id}">${w.icon} ${esc(w.name)}</button>`).join('')}</div>
+    <div class="grid3"><div class="stat"><span>รายรับ</span><b class="in">${fmt(st.i,0)}</b></div><div class="stat"><span>รายจ่าย</span><b class="out">${fmt(st.o,0)}</b></div><div class="stat"><span>สุทธิ</span><b>${fmt(st.net,0)}</b></div></div>
+    ${bubblesHTML(st.by)}
+  </section>
+  <section class="card"><h2>รายการ</h2><div class="list">${rows||`<div class="empty"><i>🗒️</i>เดือนนี้ยังไม่มีรายการ</div>`}</div></section>`;
+};
+
+/* ----- value calculator ----- */
+const UNITS={g:['กรัม','g',1],kg:['กิโลกรัม','g',1000],ml:['มล.','ml',1],l:['ลิตร','ml',1000],pc:['ชิ้น/ซอง/ฟอง','pc',1]};
+const BASE={g:'กรัม',ml:'มล.',pc:'ชิ้น'};
+function valueCard(home){
+  const V=ST.VC;
+  return `<section class="card stack">
+    <div class="between"><h2>🛒 คุ้มไหม?</h2>${home?'<span class="hint">เทียบราคาต่อหน่วย</span>':''}</div>
+    ${V.items.map((it,i)=>`<div class="opt" id="opt${i}">
+      <div class="between"><input type="text" aria-label="ชื่อตัวเลือก" data-bind="VC.items.${i}.name" data-live="vc" value="${esc(it.name)}" style="font-weight:600">${V.items.length>2?`<button class="x" data-act="vcDel" data-i="${i}" aria-label="ลบตัวเลือก">✕</button>`:''}</div>
+      <div class="grid2"><label class="f">ราคารวม (บาท)<input type="number" inputmode="decimal" id="vc${i}p" data-bind="VC.items.${i}.price" data-live="vc" value="${esc(it.price)}" placeholder="เช่น 89"></label>
+      <label class="f">จำนวนชิ้นในแพ็ค<input type="number" inputmode="decimal" id="vc${i}q" data-bind="VC.items.${i}.qty" data-live="vc" value="${esc(it.qty)}" placeholder="เช่น 12"></label>
+      <label class="f">ขนาดต่อชิ้น<input type="number" inputmode="decimal" id="vc${i}s" data-bind="VC.items.${i}.size" data-live="vc" value="${esc(it.size)}" placeholder="เช่น 250"></label>
+      <label class="f">หน่วย<select id="vc${i}u" data-bind="VC.items.${i}.unit" data-live="vc">${Object.entries(UNITS).map(([k,u])=>`<option value="${k}" ${it.unit===k?'selected':''}>${u[0]}</option>`).join('')}</select></label></div>
+      <div class="hint" id="vcr${i}"></div></div>`).join('')}
+    ${V.items.length<4?`<button class="btn ghost" data-act="vcAdd">+ เพิ่มตัวเลือก</button>`:''}
+    <label class="row" style="gap:8px"><input type="checkbox" id="vcfood" data-bind="VC.food" data-live="vcAll" ${V.food?'checked':''} style="width:22px;height:22px;accent-color:var(--good)"> เป็นของกิน / ของที่มีวันหมดอายุ</label>
+    ${V.food?`<div class="grid2"><label class="f">บ้านเราใช้วันละ (หน่วยฐาน)<input type="number" inputmode="decimal" id="vcuse" data-bind="VC.use" data-live="vc" value="${esc(V.use)}" placeholder="เช่น 200"></label>
+      <label class="f">เปิดแล้ว/ซื้อแล้วอยู่ได้กี่วัน<input type="number" inputmode="decimal" id="vcshelf" data-bind="VC.shelf" data-live="vc" value="${esc(V.shelf)}" placeholder="เช่น 7"></label></div>
+      <div class="hint">หน่วยฐาน = กรัม, มล. หรือชิ้น ตามที่เลือกด้านบน · บ้าน 5 คน ลองนึกว่ากินกันวันละเท่าไหร่</div>`:''}
+    <div id="vcout"></div>
+  </section>`;
+}
+function vcCalc(){
+  const V=ST.VC;const use=num(V.use),shelf=num(V.shelf);
+  return V.items.map(it=>{
+    const u=UNITS[it.unit]||UNITS.g;const total=num(it.size)*u[2]*(num(it.qty)||1);const price=num(it.price);
+    if(!total||!price)return{ok:false,it};
+    const per=price/total;let usable=total,days=null,waste=0;
+    if(V.food&&use>0){days=total/use;if(shelf>0&&days>shelf){usable=use*shelf;waste=total-usable}}
+    return{ok:true,it,base:u[1],total,price,per,eff:price/usable,days,waste,wasteBaht:waste*per};
+  });
+}
+function perLabel(r){if(r.base==='pc')return `${fmt(r.per)} บาท/ชิ้น`;return `${fmt(r.per*100)} บาท ต่อ 100 ${BASE[r.base]}`}
+function vcOut(){
+  const out=$('#vcout');if(!out)return;
+  const rs=vcCalc();
+  rs.forEach((r,i)=>{const el=$('#vcr'+i);if(!el)return;
+    el.innerHTML=r.ok?`รวม ${fmt(r.total)} ${BASE[r.base]} · <b>${perLabel(r)}</b>${r.days!=null?` · ใช้หมดใน ${fmt(r.days,1)} วัน`:''}${r.waste>0?` · <span class="out">กินไม่ทัน เสีย ~${fmt(r.wasteBaht,0)} บาท</span>`:''}`:'กรอกราคา จำนวน และขนาด';
+    $('#opt'+i)?.classList.remove('best')});
+  const ok=rs.filter(r=>r.ok);
+  if(ok.length<2){out.innerHTML=`<div class="res hint">กรอกอย่างน้อย 2 ตัวเลือกให้ครบ แล้วเจี๊ยบจะบอกว่าแบบไหนคุ้มกว่า</div>`;return}
+  const bases=new Set(ok.map(r=>r.base));
+  if(bases.size>1){out.innerHTML=`<div class="res warn">หน่วยไม่เหมือนกัน (เช่น กรัม กับ มล.) เทียบกันตรงๆ ไม่ได้ ลองเลือกหน่วยกลุ่มเดียวกันนะคะ</div>`;return}
+  const sorted=ok.slice().sort((a,b)=>a.eff-b.eff);const best=sorted[0],worst=sorted[sorted.length-1];
+  const bi=rs.indexOf(best);$('#opt'+bi)?.classList.add('best');
+  const diff=(worst.eff-best.eff)/worst.eff*100;
+  const perBest=best.base==='pc'?`${fmt(best.eff)} บาท/ชิ้น`:`${fmt(best.eff*100)} บาท ต่อ 100 ${BASE[best.base]}`;
+  let extra='';
+  const cheapPerButWaste=ok.slice().sort((a,b)=>a.per-b.per)[0];
+  if(cheapPerButWaste!==best&&cheapPerButWaste.waste>0)extra=`<p style="margin:6px 0 0">“${esc(cheapPerButWaste.it.name)}” ราคาต่อหน่วยถูกกว่า แต่บ้านเรากินไม่ทัน ต้องทิ้งไปราว ${fmt(cheapPerButWaste.wasteBaht,0)} บาท เลยกลายเป็นแพงกว่า</p>`;
+  else if(best.waste>0)extra=`<p style="margin:6px 0 0">ระวัง: ตัวเลือกนี้ก็กินไม่หมดก่อนเสีย คิดราคาจากส่วนที่กินทันแล้ว</p>`;
+  out.innerHTML=`<div class="res"><div class="hint">คุ้มที่สุด</div><div class="big">${esc(best.it.name)}</div><div>${perBest}${V_food()?' (คิดจากส่วนที่กินทัน)':''} · ถูกกว่าแบบแพงสุด ${fmt(diff,1)}%</div>${extra}</div>`;
+}
+const V_food=()=>ST.VC.food&&num(ST.VC.use)>0;
+VIEWS.value=()=>valueCard(false)+`<section class="card stack"><h2>เคล็ดลับเล็กๆ</h2><div class="hint">ของสด เช่น ผัก ขนมปัง นม ซื้อยกแพ็คคุ้มเฉพาะเมื่อกินทันก่อนเสีย · ของแห้งและของใช้ เช่น ผงซักฟอก ทิชชู่ ซื้อแพ็คใหญ่มักคุ้ม ถ้ามีที่เก็บ · โปรซื้อ 2 แถม 1 ให้ใส่จำนวนชิ้นรวมของแถมด้วย</div></section>`;
+AFTER.value=()=>vcOut();
+
+/* ----- savings ----- */
+function goalAmounts(g){const n=+g.count||0;return Array.from({length:n},(_,i)=>g.mode==='step'?num(g.slot)*(i+1):num(g.slot))}
+function goalSaved(g){const a=goalAmounts(g);return (g.marks||[]).reduce((s,i)=>s+(a[i]||0),0)}
+VIEWS.savings=()=>{
+  const goals=D('savings').goals;
+  return `<button class="btn pri full" data-act="goalNew">+ สร้างตารางออมใหม่</button>
+  ${goals.length?goals.map(g=>{const a=goalAmounts(g);const total=a.reduce((s,v)=>s+v,0);const saved=goalSaved(g);const pct=total?saved/total*100:0;const done=(g.marks||[]).length;
+    return `<section class="card stack">
+      <div class="between"><h2><span>${esc(g.icon||'🐷')}</span><span class="grow">${esc(g.name)}</span></h2><button class="btn sm ghost" data-act="goalMenu" data-id="${g.id}" aria-label="ตัวเลือก">⋯</button></div>
+      <div class="between"><div><div class="big num">${fmt(saved,0)}</div><div class="hint">จาก ${fmt(total,0)} บาท · เหลืออีก ${fmt(total-saved,0)} บาท</div></div><span class="pill ${pct>=100?'good':'sky'}">${done}/${a.length} ช่อง · ${fmt(pct,0)}%</span></div>
+      <div class="bar"><span style="width:${clamp(pct,0,100)}%"></span></div>
+      <div class="slots">${a.map((v,i)=>`<button class="slot ${(g.marks||[]).includes(i)?'on':''}" data-act="slot" data-id="${g.id}" data-i="${i}" aria-pressed="${(g.marks||[]).includes(i)}">${fmt(v,0)}</button>`).join('')}</div>
+      ${pct>=100?`<div class="note">ครบเป้าแล้ว เก่งมากค่ะ! 🎉</div>`:''}
+    </section>`}).join(''):`<section class="card empty"><i>🐣</i>ยังไม่มีตารางออม<br>ลองสร้างตารางแรก เช่น ช่องละ 100 บาท 50 ช่อง = 5,000 บาท</section>`}`;
+};
+
+/* ----- people / pay ----- */
+VIEWS.people=()=>{
+  const list=people().filter(p=>p.group===ST.PG);
+  const totalW=people().filter(p=>p.group==='worker').reduce((s,p)=>s+owed(p.id),0);
+  const totalK=people().filter(p=>p.group==='kid').reduce((s,p)=>s+owed(p.id),0);
+  return `<div class="seg" role="tablist"><button class="${ST.PG==='worker'?'on':''}" data-act="pg" data-g="worker">👷 ลูกน้อง · ค้าง ${fmt(totalW,0)}</button><button class="${ST.PG==='kid'?'on':''}" data-act="pg" data-g="kid">🧒 ลูกๆ · ค้าง ${fmt(totalK,0)}</button></div>
+  ${list.map(personCard).join('')||`<section class="card empty"><i>${ST.PG==='worker'?'👷':'🧒'}</i>ยังไม่มีรายชื่อ${ST.PG==='worker'?'ลูกน้อง':'ลูกๆ'}</section>`}
+  <button class="btn pri full" data-act="personNew">+ เพิ่ม${ST.PG==='worker'?'ลูกน้อง':'ลูก'}</button>
+  <div class="note">ทุกครั้งที่เคลียร์ยอด แอปจะสร้างข้อความสรุปให้คัดลอกส่ง LINE พร้อมสลิป ช่วยให้ทั้งสองฝ่ายเข้าใจตรงกัน</div>`;
+};
+function personCard(p){
+  const un=unpaid(p.id);const tot=un.reduce((s,e)=>s+num(e.amt),0);
+  const work=un.filter(e=>e.kind==='work'),bor=un.filter(e=>e.kind==='borrow'),al=un.filter(e=>e.kind==='allow');
+  const open=ST.open[p.id];
+  const pays=allPayments().filter(x=>x.pid===p.id).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)).slice(0,6);
+  return `<section class="card person">
+    <div class="between"><h2><span>${p.group==='kid'?'🧒':'👷'}</span><span class="grow">${esc(p.name)}</span></h2><button class="btn sm ghost" data-act="personEdit" data-id="${p.id}">แก้ไข</button></div>
+    <div class="between"><div><div class="hint">ยอดค้างที่ต้องจ่าย</div><div class="owe num ${tot>0?'out':''}">${fmt(tot)} บาท</div></div>
+      <div class="hint" style="text-align:right">${p.wage?`ค่าแรง ${fmt(p.wage)}/วัน`:''}${p.group==='kid'&&p.allow?`<br>ค่าขนม ${fmt(p.allow)}/วัน`:''}</div></div>
+    ${tot>0?`<div class="hint">${[work.length?`ค่าแรงค้าง ${work.length} วัน`:'',bor.length?`ยืมเขามา ${bor.length} ครั้ง`:'',al.length?`ค่าขนมค้าง ${al.length} วัน`:''].filter(Boolean).join(' · ')}</div>`:''}
+    <div class="row">
+      ${p.group==='kid'?`<button class="btn sm" data-act="entryNew" data-id="${p.id}" data-k="allow">🍬 ค่าขนม</button>`:''}
+      <button class="btn sm" data-act="entryNew" data-id="${p.id}" data-k="work">🛠 ${p.group==='kid'?'ทำงานพาร์ทไทม์':'วันทำงาน'}</button>
+      <button class="btn sm" data-act="entryNew" data-id="${p.id}" data-k="borrow">💸 ยืมเงินเขา</button>
+    </div>
+    <div class="row"><button class="btn pri" style="flex:1" data-act="payOpen" data-id="${p.id}" ${tot>0?'':'disabled'}>เคลียร์ยอด ${tot>0?fmt(tot,0)+' บาท':''}</button><button class="btn ghost" data-act="toggle" data-id="${p.id}">${open?'ซ่อน':'ดูรายละเอียด'}</button></div>
+    ${open?`<div class="stack"><b>ยอดค้าง</b>${un.length?`<div>${un.map(e=>`<div class="entry"><span>${KIND[e.kind].i}</span><span class="t"><b>${dTH(e.date)} · ${KIND[e.kind].n}</b><br><small class="hint">${esc(e.note||'')}</small></span><span class="amt">${fmt(e.amt)}</span><button class="x" data-act="entryDel" data-id="${e.id}" aria-label="ลบรายการ">✕</button></div>`).join('')}</div>`:`<div class="hint">ไม่มียอดค้าง</div>`}
+      <b>ประวัติการจ่าย</b>${pays.length?`<div class="list">${pays.map(x=>`<button class="li" data-act="payView" data-id="${x.id}"><span class="ic">${x.method==='cash'?'💵':'📲'}</span><span class="t"><b>${dTH(x.date)} ${x.time} น.</b><small>${x.method==='cash'?'เงินสด'+(x.place?' · '+esc(x.place):''):'โอน'}${x.slip?' · มีสลิป':''}</small></span><span class="amt">${fmt(x.amt)}</span></button>`).join('')}</div>`:`<div class="hint">ยังไม่มีประวัติ</div>`}</div>`:''}
+  </section>`;
+}
+function buildMsg(p,entries,pay,remain){
+  const L=[];L.push(`📋 สรุปการจ่ายเงิน — ${p.name}`);
+  const ds=entries.map(e=>e.date).sort();
+  if(ds.length){const a=ds[0],b=ds[ds.length-1];L.push(a===b?`รายการของวันที่ ${dTH(a)}`:`เคลียร์ยอดค้างวันที่ ${dTHnoY(a)} – ${dTH(b)}`)}
+  L.push('━━━━━━━━━━');
+  const grp=k=>entries.filter(e=>e.kind===k).sort((a,b)=>a.date.localeCompare(b.date));
+  const w=grp('work');
+  if(w.length){const s=w.reduce((t,e)=>t+num(e.amt),0);const same=w.every(e=>num(e.amt)===num(w[0].amt));
+    L.push(`🛠 ค่าแรง ${w.length} วัน`);
+    if(same)L.push(`   ${w.map(e=>dTHnoY(e.date)).join(', ')}`),L.push(`   ${w.length} วัน × ${fmt(w[0].amt)} = ${fmt(s)} บาท`);
+    else{w.forEach(e=>L.push(`   • ${dTHnoY(e.date)}  ${fmt(e.amt)} บาท${e.note?' ('+e.note+')':''}`));L.push(`   รวมค่าแรง ${fmt(s)} บาท`)}}
+  const al=grp('allow');
+  if(al.length){const s=al.reduce((t,e)=>t+num(e.amt),0);L.push(`🍬 ค่าขนม ${al.length} วัน = ${fmt(s)} บาท`);L.push(`   ${al.map(e=>dTHnoY(e.date)).join(', ')}`)}
+  const b=grp('borrow');
+  if(b.length){const s=b.reduce((t,e)=>t+num(e.amt),0);L.push(`💸 คืนเงินที่ยืม ${b.length} ครั้ง = ${fmt(s)} บาท`);b.forEach(e=>L.push(`   • ${dTHnoY(e.date)} ${e.note?e.note+' ':''}${fmt(e.amt)} บาท`))}
+  L.push('━━━━━━━━━━');
+  L.push(`💰 รวมจ่ายครั้งนี้ ${fmt(pay.amt)} บาท`);
+  L.push(pay.method==='cash'?`💵 จ่ายเงินสดแล้ว ${dTH(pay.date)} เวลา ${pay.time} น.${pay.place?' ที่ '+pay.place:''}`:`✅ โอนเรียบร้อย ${dTH(pay.date)} เวลา ${pay.time} น. (แนบสลิป)`);
+  L.push(`📌 ยอดค้างคงเหลือ ${fmt(remain)} บาท`);
+  return L.join('\n');
+}
+
+/* ----- debt ----- */
+function lcCalc(){
+  const L=ST.LC;const P=num(L.principal),dd=num(L.deduct),ins=num(L.inst),n=num(L.n),f=num(L.freq)||1;
+  const rec=P-dd,paid=ins*n,cost=paid-rec,days=n*f;
+  if(!(rec>0&&paid>0&&days>0))return null;
+  const pct=cost/rec*100,yr=pct*365/days;
+  const legal=rec*0.15*days/365;
+  const saveDays=Math.ceil(rec/ins);
+  return{P,dd,rec,paid,cost,days,pct,yr,legal,saveDays,ins,f};
+}
+function lcOut(){
+  const el=$('#lcout');if(!el)return;const r=lcCalc();
+  if(!r){el.innerHTML=`<div class="res hint">กรอกตัวเลขให้ครบ</div>`;return}
+  const per=r.f===1?'วัน':r.f===7?'สัปดาห์':'เดือน';
+  const level=r.yr>100?['bad','โหดมาก'] : r.yr>36?['bad','แพงเกินไป'] : r.yr>15?['sky','สูงกว่าเพดานทั่วไป']:['good','อยู่ในเกณฑ์'];
+  el.innerHTML=`<div class="res ${r.yr>36?'warn':''} stack">
+    <div class="between"><span class="pill ${level[0]}">${level[1]}</span><span class="hint">${r.days} วัน</span></div>
+    <table class="tbl"><tr><td>ขอยืม</td><td>${baht(r.P)}</td></tr><tr><td>ถูกหักไปตั้งแต่วันแรก</td><td class="out">−${baht(r.dd)}</td></tr><tr><td>ได้เงินจริงในมือ</td><td><b>${baht(r.rec)}</b></td></tr><tr><td>ต้องจ่ายคืนทั้งหมด</td><td>${baht(r.paid)}</td></tr><tr><td><b>ค่าดอกที่เสียจริง</b></td><td class="out"><b>${baht(r.cost)}</b></td></tr></table>
+    <div>คิดเป็น <b>${fmt(r.pct,1)}%</b> ภายใน ${r.days} วัน หรือประมาณ <b class="out">${fmt(r.yr,0)}% ต่อปี</b></div>
+    <div class="hint">เทียบเพดานดอกเบี้ยทั่วไปตามกฎหมายแพ่ง 15% ต่อปี ระยะเวลาเท่ากันจะเสียแค่ราว ${baht(r.legal)} · ส่วนที่จ่ายเกินคือ ${baht(r.cost-r.legal)}</div>
+  </div>
+  <div class="note"><b>ลองคิดกลับด้าน:</b> ถ้าเก็บ${per}ละ ${fmt(r.ins,0)} บาท (เท่าค่างวด) ไว้ก่อน ${r.saveDays} ${per} ก็ได้ ${fmt(r.rec,0)} บาทเท่ากัน โดยไม่เสียดอกเลย</div>`;
+}
+function payoffSim(list,extra){
+  const ds=list.map(d=>({name:d.name,b:num(d.balance),r:num(d.rate)/1200,m:num(d.monthly),done:0}));
+  let month=0,interest=0;const order=[];
+  while(ds.some(d=>d.b>0.5)&&month<600){
+    month++;let pool=num(extra);
+    for(const d of ds){if(d.b<=0.5){pool+=d.m;continue}const i=d.b*d.r;interest+=i;d.b+=i}
+    for(const d of ds){if(d.b<=0.5)continue;const p=Math.min(d.m,d.b);d.b-=p;pool+=d.m-p}
+    for(const d of ds.filter(d=>d.b>0.5).sort((a,b)=>b.r-a.r||a.b-b.b)){if(pool<=0)break;const p=Math.min(pool,d.b);d.b-=p;pool-=p}
+    for(const d of ds)if(d.b<=0.5&&!d.done){d.done=month;order.push([d.name,month])}
+  }
+  return{month,interest,order,stuck:ds.some(d=>d.b>0.5)};
+}
+const mText=m=>m>=12?`${Math.floor(m/12)} ปี ${m%12?m%12+' เดือน':''}`:`${m} เดือน`;
+VIEWS.debt=()=>{
+  const L=ST.LC;const list=D('debts').list;
+  const totalB=list.reduce((s,d)=>s+num(d.balance),0),totalM=list.reduce((s,d)=>s+num(d.monthly),0);
+  return `<section class="card stack"><h2>🧮 เครื่องคิดดอกโหด</h2>
+    <div class="grid2"><label class="f">ขอยืม (บาท)<input type="number" inputmode="decimal" id="lcP" data-bind="LC.principal" data-live="lc" value="${esc(L.principal)}"></label>
+    <label class="f">ถูกหักวันแรก (บาท)<input type="number" inputmode="decimal" id="lcD" data-bind="LC.deduct" data-live="lc" value="${esc(L.deduct)}"></label>
+    <label class="f">ส่งงวดละ (บาท)<input type="number" inputmode="decimal" id="lcI" data-bind="LC.inst" data-live="lc" value="${esc(L.inst)}"></label>
+    <label class="f">จำนวนงวด<input type="number" inputmode="decimal" id="lcN" data-bind="LC.n" data-live="lc" value="${esc(L.n)}"></label></div>
+    <label class="f">ส่งทุกๆ<select id="lcF" data-bind="LC.freq" data-live="lc"><option value="1" ${L.freq==='1'?'selected':''}>วัน</option><option value="7" ${L.freq==='7'?'selected':''}>สัปดาห์</option><option value="30" ${L.freq==='30'?'selected':''}>เดือน</option></select></label>
+    <div id="lcout"></div>
+    <details><summary>ถ้าจำเป็นต้องยืมจริงๆ ทำยังไงดี</summary><div class="stack" style="margin-top:8px">
+      <div>• ยืมเท่าที่จำเป็น และหาทางคืนให้เร็วที่สุด ดอกยิ่งนานยิ่งบาน</div>
+      <div>• หาเงินเสริมช่วงผ่อน: เพิ่มรอบไลฟ์ดูดวง, รับงานล้างแอร์เพิ่มช่วงหน้าร้อน, รวบรวมขวดพลาสติก/ขวดแก้วขายเป็นรอบๆ</div>
+      <div>• ทุกครั้งที่ได้เงิน แบ่ง 10% เข้าตารางออม “กองทุนฉุกเฉิน” เพื่อรอบหน้าไม่ต้องกลับไปยืม</div>
+      <div>• ดูทางเลือกในระบบก่อน เช่น สินเชื่อสำหรับอาชีพอิสระของธนาคารรัฐ ซึ่งดอกเบี้ยต่ำกว่ามาก</div>
+    </div></details>
+  </section>
+  <section class="card stack"><div class="between"><h2>📆 หนี้ที่กำลังผ่อน</h2><button class="btn sm pri" data-act="debtNew">+ เพิ่ม</button></div>
+    ${list.length?`<div class="grid2"><div class="stat"><span>ยอดหนี้รวม</span><b>${fmt(totalB,0)}</b></div><div class="stat"><span>ผ่อนต่อเดือน</span><b>${fmt(totalM,0)}</b></div></div>`:''}
+    ${list.map(d=>{const c=+d.count||0;const paid=(d.marks||[]).length;return `<div class="opt"><div class="between"><b>${esc(d.name)}</b><button class="btn sm ghost" data-act="debtEdit" data-id="${d.id}">แก้ไข</button></div>
+      <div class="hint">คงเหลือ ${baht(d.balance)} · ดอกเบี้ย ${fmt(d.rate)}%/ปี · ผ่อน ${baht(d.monthly)}/เดือน</div>
+      ${c?`<div class="between"><span class="hint">ตารางผ่อน (แตะเมื่อจ่ายงวดแล้ว)</span><span class="pill">${paid}/${c} งวด</span></div><div class="bar y"><span style="width:${paid/c*100}%"></span></div><div class="slots">${Array.from({length:c},(_,i)=>`<button class="slot ${(d.marks||[]).includes(i)?'on':''}" data-act="debtSlot" data-id="${d.id}" data-i="${i}">${i+1}</button>`).join('')}</div>`:''}</div>`}).join('')||`<div class="empty"><i>🎈</i>ไม่มีหนี้ที่บันทึกไว้</div>`}
+  </section>
+  ${list.length?`<section class="card stack"><h2>🏁 แผนปลดหนี้ให้เร็วที่สุด</h2>
+    <label class="f">มีเงินโปะเพิ่มได้เดือนละ (บาท)<input type="number" inputmode="decimal" id="dxE" data-bind="DX.extra" data-live="dx" value="${esc(ST.DX.extra)}"></label>
+    <div id="dxout"></div></section>`:''}`;
+};
+function dxOut(){
+  const el=$('#dxout');if(!el)return;const list=D('debts').list;
+  const a=payoffSim(list,0),b=payoffSim(list,ST.DX.extra);
+  if(b.stuck){el.innerHTML=`<div class="res warn">ค่างวดรวมยังไม่พอจ่ายดอกเบี้ย หนี้จะไม่ลดลง ลองเพิ่มเงินโปะต่อเดือน</div>`;return}
+  el.innerHTML=`<div class="res stack"><div>วิธีที่แนะนำ: จ่ายขั้นต่ำทุกก้อน แล้ว<b>โปะก้อนที่ดอกเบี้ยแพงที่สุดก่อน</b> พอปิดได้ก็ย้ายเงินงวดนั้นไปโปะก้อนถัดไป</div>
+   <div class="grid2"><div class="stat"><span>ปลดหนี้หมดใน</span><b>${mText(b.month)}</b></div><div class="stat"><span>ดอกเบี้ยรวม</span><b>${fmt(b.interest,0)}</b></div></div>
+   ${num(ST.DX.extra)>0&&!a.stuck?`<div class="pill good">เร็วขึ้น ${a.month-b.month} เดือน · ประหยัดดอก ${fmt(a.interest-b.interest,0)} บาท</div>`:''}
+   <div><b>ลำดับที่จะปิดได้</b>${b.order.map(([n,m],i)=>`<div>${i+1}. ${esc(n)} — เดือนที่ ${m}</div>`).join('')}</div></div>`;
+}
+AFTER.debt=()=>{lcOut();dxOut()};
+
+/* ----- readiness & report ----- */
+function readiness(){
+  const main=settings().main;const cur=ymOf(today());
+  const months=[];for(let i=6;i>=1;i--)months.push(shiftYM(cur,-i));
+  const tx=allTx();
+  const inMain=m=>tx.filter(t=>t.type==='in'&&t.cat!=='loan'&&t.wallet===main&&ymOf(t.date)===m).reduce((s,t)=>s+num(t.amt),0);
+  const inAll=m=>tx.filter(t=>t.type==='in'&&t.cat!=='loan'&&ymOf(t.date)===m).reduce((s,t)=>s+num(t.amt),0);
+  const outAll=m=>tx.filter(t=>t.type==='out'&&t.cat!=='save'&&ymOf(t.date)===m).reduce((s,t)=>s+num(t.amt),0);
+  const im=months.map(inMain),ia=months.map(inAll),oa=months.map(outAll);
+  const dataMonths=months.filter((m,i)=>ia[i]>0||oa[i]>0).length;
+  const f1=im.filter(v=>v>0).length/6*25;
+  const mean=im.reduce((s,v)=>s+v,0)/6;
+  const sd=Math.sqrt(im.reduce((s,v)=>s+(v-mean)**2,0)/6);
+  const f2=mean>0?25*Math.max(0,1-sd/mean):0;
+  const TI=ia.reduce((s,v)=>s+v,0),TO=oa.reduce((s,v)=>s+v,0);
+  const ratio=TI>0?(TI-TO)/TI:0;const f3=clamp(ratio/0.2,0,1)*25;
+  const debtM=D('debts').list.reduce((s,d)=>s+num(d.monthly),0);const avgIn=TI/6;
+  const dsr=avgIn>0?debtM/avgIn:(debtM>0?1:0);const f4=dataMonths===0?0:dsr<=0.3?25:dsr>=0.7?0:25*(0.7-dsr)/0.4;
+  const score=Math.round(f1+f2+f3+f4);
+  const curIn=inMain(cur);
+  const weeks=new Set(tx.filter(t=>t.type==='in'&&t.cat!=='loan'&&t.wallet===main&&ymOf(t.date)===cur).map(t=>Math.min(4,Math.ceil(+t.date.slice(8)/7))));
+  const tips=[];
+  if(dataMonths<3)tips.push(['🐣',`ตอนนี้มีข้อมูล ${dataMonths} จาก 6 เดือน บันทึกต่อเนื่องไปเรื่อยๆ คะแนนจะแม่นขึ้น`]);
+  if(mean>0&&curIn<mean)tips.push(['📥',`เดือนนี้เงินเข้า${wName(main)}แล้ว ${fmt(curIn,0)} บาท ยังน้อยกว่าค่าเฉลี่ย ${fmt(mean,0)} บาท ถ้ามีรายได้เงินสดจากงานหรือไลฟ์ นำฝากเข้าบัญชีนี้ก่อนสิ้นเดือน`]);
+  if(weeks.size<4)tips.push(['🗓️',`เดือนนี้มีเงินเข้าบัญชีหลัก ${weeks.size} จาก 4 สัปดาห์ ฝากเป็นประจำทุกสัปดาห์จะดูมีรายได้สม่ำเสมอ`]);
+  if(f1<25)tips.push(['🏦',`ใน 6 เดือนที่ผ่านมา มี ${6-im.filter(v=>v>0).length} เดือนที่ไม่มีเงินเข้าบัญชีหลัก ให้รายได้ทุกทางเข้าบัญชีเดียวกัน`]);
+  if(ratio<0.1&&TI>0)tips.push(['🐷',`เหลือเก็บ ${fmt(ratio*100,0)}% ของรายรับ ลองตั้งเป้า 10–20% และไม่ถอนออกหมดทันทีหลังเงินเข้า`]);
+  if(dsr>0.4)tips.push(['📆',`ภาระผ่อนต่อเดือนคิดเป็น ${fmt(dsr*100,0)}% ของรายได้ ลองปิดหนี้ดอกแพงก่อนยื่นกู้`]);
+  tips.push(['⚠️','อย่าโอนเงินวนเข้าออกเพื่อให้ยอดดูเยอะ ธนาคารดูออกและอาจปฏิเสธได้ เงินเข้าจริงอย่างสม่ำเสมอดีที่สุด']);
+  if(score>=70)tips.unshift(['🌟','เดินบัญชีได้ดีมาก รักษาแบบนี้ไว้ สู้ๆ ค่ะ!']);
+  else if(score>=40)tips.unshift(['💪','มาได้ครึ่งทางแล้ว อีกนิดเดียว ทำต่อเนื่องอีกสักพักนะคะ']);
+  return{score,f:[['รายได้เข้าบัญชีหลักทุกเดือน',f1],['รายได้นิ่ง ไม่ขึ้นลงมาก',f2],['มีเงินเหลือเก็บ',f3],['ภาระหนี้ไม่หนัก',f4]],tips,months,im,dataMonths};
+}
+function gaugeSVG(score){
+  const r=48,c=2*Math.PI*r,p=clamp(score,0,100)/100;
+  const col=score>=70?'var(--good)':score>=40?'var(--accent)':'var(--bad)';
+  return `<svg viewBox="0 0 120 120" role="img" aria-label="คะแนน ${score} จาก 100"><circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--soft)" stroke-width="12"/><circle cx="60" cy="60" r="${r}" fill="none" stroke="${col}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${c*p} ${c}" transform="rotate(-90 60 60)"/><text x="60" y="64" text-anchor="middle" font-family="Mali,sans-serif" font-size="30" font-weight="700" fill="var(--ink)">${score}</text><text x="60" y="84" text-anchor="middle" font-size="11" fill="var(--muted)">จาก 100</text></svg>`;
+}
+VIEWS.report=()=>{
+  const m=ST.RP;const st=monthStats(m);const main=settings().main;
+  const end=lastDay(m);const appBal=balanceAt(main,end);
+  const rc=(D('recon').m[m]||{});const real=rc.bank;
+  const diff=real!=null&&real!==''?num(real)-appBal:null;
+  const R=readiness();
+  const cats=Object.entries(st.by).sort((a,b)=>b[1]-a[1]);
+  const inBy={};for(const t of st.items)if(t.type==='in')inBy[t.cat]=(inBy[t.cat]||0)+num(t.amt);
+  return `<section class="card stack"><div class="between"><h2>สรุปประจำเดือน</h2><input type="month" id="rpM" value="${m}" data-act-change="rpM" style="max-width:170px"></div>
+    <div class="grid3"><div class="stat"><span>รายรับ</span><b class="in">${fmt(st.i,0)}</b></div><div class="stat"><span>รายจ่าย</span><b class="out">${fmt(st.o,0)}</b></div><div class="stat"><span>สุทธิ</span><b>${fmt(st.net,0)}</b></div></div>
+    ${Object.keys(inBy).length?`<b>รายรับตามหมวด</b><table class="tbl">${Object.entries(inBy).map(([c,v])=>`<tr><td>${CAT[c]?.i||''} ${esc(CAT[c]?.n||c)}</td><td>${fmt(v)}</td></tr>`).join('')}</table>`:''}
+    ${cats.length?`<b>รายจ่ายตามหมวด</b>${cats.map(([c,v])=>`<div><div class="between"><span>${CAT[c]?.i||''} ${esc(CAT[c]?.n||c)}</span><span class="num">${fmt(v)}</span></div><div class="bar p"><span style="width:${v/cats[0][1]*100}%"></span></div></div>`).join('')}`:`<div class="hint">ไม่มีรายจ่ายในเดือนนี้</div>`}
+    <b>ยอดคงเหลือแต่ละกระเป๋า ณ ${dTH(end)}</b><table class="tbl">${wallets().map(w=>`<tr><td>${w.icon} ${esc(w.name)}</td><td>${fmt(balanceAt(w.id,end))}</td></tr>`).join('')}</table>
+    <div class="row"><button class="btn pri" data-act="printReport">พิมพ์ / บันทึกเป็น PDF</button><button class="btn" data-act="exportReport">ดาวน์โหลดรายงาน</button><button class="btn ghost" data-act="exportCSV">ไฟล์ตาราง (CSV)</button></div>
+    <div class="hint">กดพิมพ์แล้วเลือกเครื่องพิมพ์ หรือเลือก “บันทึกเป็น PDF” เพื่อเก็บไฟล์ไว้ยื่นประกอบ</div>
+  </section>
+  <section class="card stack"><h2>🔎 กระทบยอดกับบัญชีจริง</h2>
+    <div class="hint">เปิดแอปธนาคาร ดูยอดคงเหลือ ณ สิ้นเดือน (หรือวันนี้ ถ้าเป็นเดือนปัจจุบัน) แล้วกรอกเทียบ</div>
+    <div class="grid2"><div class="stat"><span>ยอดในแอปนี้ (${esc(wName(main))})</span><b>${fmt(appBal)}</b></div><label class="f">ยอดจริงในธนาคาร<input type="number" inputmode="decimal" id="rcBank" value="${real??''}" placeholder="กรอกยอดจริง"></label></div>
+    <button class="btn" data-act="saveRecon">บันทึกยอดจริง</button>
+    ${diff==null?'':Math.abs(diff)<1?`<div class="note">ตรงกันแล้ว เยี่ยมมาก ✔</div>`:`<div class="note warn">ต่างกัน ${fmt(Math.abs(diff))} บาท (${diff>0?'ในธนาคารมีมากกว่า: อาจลืมบันทึกรายรับ':'ในธนาคารมีน้อยกว่า: อาจลืมบันทึกรายจ่าย/ค่าธรรมเนียม'}) ลองไล่ดูรายการเดือนนี้อีกครั้ง</div>`}
+  </section>
+  <section class="card stack"><h2>🏦 ความพร้อมยื่นกู้</h2>
+    <div class="gauge">${gaugeSVG(R.score)}<div class="factor">${R.f.map(([n,v])=>`<span>${n}</span><b class="num">${Math.round(v)}/25</b>`).join('')}</div></div>
+    <div class="stack">${R.tips.map(([i,t])=>`<div class="row" style="align-items:flex-start;flex-wrap:nowrap"><span style="font-size:20px">${i}</span><span style="min-width:0">${t}</span></div>`).join('')}</div>
+    <details><summary>เอกสารที่ควรเตรียมเวลายื่นกู้</summary><div class="stack" style="margin-top:8px"><div>• Statement บัญชีธนาคารย้อนหลัง ส่วนใหญ่ 6 เดือน</div><div>• หลักฐานรายได้ เช่น หลักฐานการยื่นภาษีเงินได้ประจำปี (สำหรับอาชีพอิสระ)</div><div>• ใช้รายงานรายเดือนจากแอปนี้ประกอบการอธิบายที่มาของรายได้</div></div></details>
+    <div class="hint">คะแนนนี้เป็นการประเมินของแอปเพื่อช่วยวางแผน ไม่ใช่เครดิตสกอร์จริงของเครดิตบูโร และไม่ได้รับประกันผลการอนุมัติ</div>
+  </section>`;
+};
+
+VIEWS.menu=()=>`<section class="tiles">
+  <a class="tile" href="#value"><i>🛒</i>คุ้มไหม?<small>ราคาต่อหน่วย</small></a>
+  <a class="tile" href="#savings"><i>🐷</i>ตารางออม<small>กากบาททีละช่อง</small></a>
+  <a class="tile" href="#debt"><i>🧮</i>หนี้ & ดอกโหด<small>แผนปลดหนี้</small></a>
+  <a class="tile" href="#report"><i>🏦</i>รายงาน<small>พร้อมยื่นกู้</small></a>
+  <a class="tile" href="#people"><i>🤝</i>จ่ายเงินคน<small>ค่าแรง ค่าขนม</small></a>
+  <a class="tile" href="#ledger"><i>📒</i>บัญชี<small>รายรับจ่าย</small></a>
+  <a class="tile" href="#wallets"><i>👛</i>กระเป๋าเงิน<small>ยอดตั้งต้น</small></a>
+  <a class="tile" href="#backup"><i>💾</i>สำรองข้อมูล<small>และเริ่มต้นใหม่</small></a>
+  <a class="tile" href="#gsheet"><i>📊</i>Google Sheet<small>${META.conn?"เชื่อมแล้ว":"ยังไม่เชื่อม"}</small></a>
+</section>
+<section class="card stack"><h2>กำลังจะมาในเฟสถัดไป</h2>
+  <div class="tiles">
+    <div class="tile soon"><i>📈</i>ความรู้หุ้น<small>มือใหม่</small></div>
+    <div class="tile soon"><i>🥣</i>อาหารเช้า<small>ประหยัด มีประโยชน์</small></div>
+    <div class="tile soon"><i>🐔</i>สวนผัก & ไก่<small>คำนวณอาหารไก่</small></div>
+    <div class="tile soon"><i>♻️</i>รายได้เสริม<small>ขยะมีค่า</small></div>
+    <div class="tile soon"><i>🏡</i>ข้อมูลบ้านฉัน<small>สิ่งที่มี</small></div>
+  </div></section>`;
+
+VIEWS.wallets=()=>{
+  const s=settings();
+  return `<section class="card stack"><h2>กระเป๋าเงิน</h2>
+  <div class="hint">ใส่ยอดเงินตั้งต้น ณ วันที่เริ่มใช้แอป เพื่อให้ยอดคงเหลือตรงกับของจริง</div>
+  ${s.wallets.map((w,i)=>`<div class="opt"><div class="grid2"><label class="f">ชื่อ<input type="text" id="wn${i}" value="${esc(w.name)}"></label><label class="f">ยอดตั้งต้น (บาท)<input type="number" inputmode="decimal" id="wo${i}" value="${esc(w.open)}"></label></div>
+    <div class="between"><span class="hint">ยอดตอนนี้ ${fmt(balanceAt(w.id,today()))} บาท</span><label class="row" style="gap:6px"><input type="radio" name="mainw" value="${w.id}" ${s.main===w.id?'checked':''} style="width:20px;height:20px;accent-color:var(--good)"> บัญชีหลักสำหรับยื่นกู้</label></div></div>`).join('')}
+  <button class="btn ghost" data-act="walletAdd">+ เพิ่มกระเป๋า</button>
+  <button class="btn pri" data-act="walletSave">บันทึก</button></section>`;
+};
+VIEWS.backup=()=>{const lb=settings().lastBackup;return `<section class="card stack"><h2>ข้อมูลเก็บอยู่ที่ไหน</h2>
+  <div>${META.conn?'📊 บันทึกในมือถือก่อน แล้วส่งขึ้น Google Sheet ของคุณเมื่อมีเน็ต':'📱 ข้อมูลทั้งหมดและรูปสลิปเก็บอยู่ในมือถือเครื่องนี้ ยังไม่ได้เชื่อม Google Sheet'}</div>
+  <div class="hint">มี ${allTx().length} รายการบัญชี · ${people().length} คน · ${D('savings').goals.length} ตารางออม${S.persisted?' · เครื่องล็อกพื้นที่เก็บไว้ให้แล้ว':''}</div>
+  ${META.conn?'':`<div class="note warn">ถ้าล้างข้อมูลของ Chrome, ถอนการติดตั้งแอป, หรือมือถือหาย/พัง ข้อมูลจะหายไปด้วย แนะนำให้<a href="#gsheet">เชื่อม Google Sheet</a> หรือสำรองไฟล์เป็นประจำ</div>`}</section>
+  <section class="card stack"><h2>📲 ติดตั้งลงมือถือ</h2><div class="hint">ติดตั้งแล้วจะมีไอคอนบนหน้าจอ เปิดได้แม้ไม่มีเน็ต</div><button class="btn" data-act="install">ติดตั้งแอป</button></section>
+  <section class="card stack"><h2>สำรองเป็นไฟล์</h2><div class="hint">สำรองล่าสุด: ${lb?dTH(lb):'ยังไม่เคย'} · แนะนำเดือนละครั้ง แล้วอัปโหลดไฟล์เก็บใน Google Drive</div>
+  <button class="btn pri" data-act="exportJSON">ดาวน์โหลดไฟล์สำรอง (รวมรูปสลิป)</button></section>
+  <section class="card stack"><h2>นำข้อมูลกลับมา</h2><div class="hint">ใช้ตอนเปลี่ยนมือถือ หรือย้ายข้อมูลจากลิงก์ Claude เดิม: เลือกไฟล์สำรอง (.json) ข้อมูลในแอปตอนนี้จะถูกแทนที่ทั้งหมด</div>
+  <input type="file" id="importFile" accept=".json,application/json"></section>
+  <section class="card stack"><h2>🧹 เริ่มต้นใหม่</h2><div class="hint">ล้างข้อมูลที่เลือกให้สะอาด${META.conn?' ทั้งในเครื่องและใน Google Sheet':''} ก่อนล้าง แอปจะดาวน์โหลดไฟล์สำรองให้ 1 ไฟล์</div>
+  <button class="btn danger" data-act="resetOpen">เริ่มต้นใหม่…</button></section>`};
+VIEWS.gsheet=()=>{const c=META.conn;const n=pendingCount();
+  const ago=META.last?(()=>{const m=Math.round((Date.now()-META.last)/60000);return m<1?'เมื่อสักครู่':m<60?m+' นาทีที่แล้ว':dTH(new Date(META.last).toISOString().slice(0,10))})():'ยังไม่เคย';
+  return `<section class="card stack"><h2>📊 เชื่อม Google Sheet</h2>
+  ${c?`<div class="note">เชื่อมแล้ว${c.name?' กับชีต “'+esc(c.name)+'”':''} · ซิงก์ล่าสุด ${ago} · รอส่ง ${n} รายการ</div>
+    ${META.lastErr?`<div class="note warn">${esc(META.lastErr)}</div>`:''}
+    <div class="row"><button class="btn pri" data-act="syncNow">ซิงก์ตอนนี้</button><button class="btn" data-act="pullAll">ดึงข้อมูลจาก Sheet ทั้งหมด</button></div>
+    <button class="btn ghost" data-act="disconnectAsk">เลิกเชื่อมต่อ</button><div id="confirmBox"></div>`
+  :`<div class="hint">ทำตามคู่มือ “วิธีตั้งค่า” ให้ได้ลิงก์ Web app และรหัสลับก่อน แล้วนำมาวางที่นี่</div>
+    <label class="f">ลิงก์ Web app (ขึ้นต้นด้วย https://script.google.com/macros/s/)<input type="text" id="gsUrl" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec"></label>
+    <label class="f">รหัสลับ (ขึ้นต้นด้วย kj-)<input type="text" id="gsKey" autocomplete="off" spellcheck="false" placeholder="kj-…"></label>
+    <button class="btn pri" data-act="connect">ทดสอบและเชื่อมต่อ</button><div id="gsMsg"></div>`}
+  </section>
+  <section class="card stack"><h2>ข้อมูลไปอยู่ที่ไหน</h2>
+    <div>• บันทึกลงมือถือก่อนทุกครั้ง ไม่มีเน็ตก็ใช้ได้</div>
+    <div>• มีเน็ตเมื่อไหร่ แอปจะส่งขึ้น Google Sheet ของคุณเอง ดูได้ที่ป้ายมุมบนขวา</div>
+    <div>• รูปสลิปเก็บในโฟลเดอร์ “กระปุกเจี๊ยบ สลิป” ใน Google Drive ของคุณ</div>
+    <div>• แท็บต่างๆ ใน Sheet มีไว้ดู พิมพ์ และส่งให้ธนาคาร ถ้าจะแก้ข้อมูล ให้แก้ในแอป เพราะแอปจะเขียนแท็บเหล่านั้นใหม่ทุกครั้งที่ซิงก์</div>
+    <div>• ใช้หลายเครื่องได้ ใส่ลิงก์และรหัสลับเดียวกัน แล้วกด “ดึงข้อมูลจาก Sheet ทั้งหมด”</div>
+  </section>`};
+/* ---------- sheets ---------- */
+let sheetOnClose=null;
+function openSheet(html,onClose){$('#sheetBody').innerHTML=html;hydrateSlips($('#sheetBody'));$('#sheet').hidden=false;document.body.style.overflow='hidden';sheetOnClose=onClose||null;setTimeout(()=>{const f=$('#sheetBody [autofocus]');f&&f.focus()},50)}
+function closeSheet(){$('#sheet').hidden=true;document.body.style.overflow='';const f=sheetOnClose;sheetOnClose=null;f&&f();if(dirty)render()}
+const sh=(t,b)=>`<div class="sheet-h"><h3>${t}</h3><button class="close" data-act="close" aria-label="ปิด">✕</button></div>${b}`;
+
+/* add / edit transaction */
+let AT=null;
+function atNew(edit){
+  AT=edit?{...edit,editId:edit.id}:{type:'out',cat:'food',amt:'',wallet:'cash',to:'bank',date:today(),time:nowT(),note:'',slip:null};
+  ST.AT=AT;atRender();
+}
+function atRender(){
+  const t=AT.type;const cats=t==='move'?[]:CATS[t];
+  openSheet(sh(AT.editId?'แก้ไขรายการ':'เพิ่มรายการ',`
+    <div class="seg money"><button class="${t==='out'?'on o':''}" data-act="atType" data-t="out">รายจ่าย</button><button class="${t==='in'?'on i':''}" data-act="atType" data-t="in">รายรับ</button><button class="${t==='move'?'on':''}" data-act="atType" data-t="move">ย้ายเงิน</button></div>
+    <label class="f">จำนวนเงิน (บาท)<input type="number" inputmode="decimal" id="atAmt" data-bind="AT.amt" value="${esc(AT.amt)}" placeholder="0" style="font-size:26px;font-weight:600;text-align:right" autofocus></label>
+    ${t!=='move'?`<div class="cats">${cats.map(([c,n,i])=>`<button class="cat ${AT.cat===c?'on':''}" data-act="atCat" data-c="${c}"><i>${i}</i>${n}</button>`).join('')}</div>`:''}
+    <div class="grid2"><label class="f">${t==='move'?'จากกระเป๋า':'กระเป๋า'}<select id="atW" data-bind="AT.wallet">${wallets().map(w=>`<option value="${w.id}" ${AT.wallet===w.id?'selected':''}>${w.icon} ${esc(w.name)}</option>`).join('')}</select></label>
+    ${t==='move'?`<label class="f">ไปยัง<select id="atTo" data-bind="AT.to">${wallets().map(w=>`<option value="${w.id}" ${AT.to===w.id?'selected':''}>${w.icon} ${esc(w.name)}</option>`).join('')}</select></label>`:`<label class="f">โน้ต<input type="text" id="atNote" data-bind="AT.note" value="${esc(AT.note)}" placeholder="เช่น ข้าวมันไก่"></label>`}
+    <label class="f">วันที่<input type="date" id="atD" data-bind="AT.date" value="${AT.date}"></label><label class="f">เวลา<input type="time" id="atT" data-bind="AT.time" value="${AT.time}"></label></div>
+    ${t==='move'?`<label class="f">โน้ต<input type="text" id="atNote2" data-bind="AT.note" value="${esc(AT.note)}" placeholder="เช่น ฝากเงินสดเข้าบัญชี"></label>`:''}
+    ${true?`<label class="f">แนบรูปสลิป/ใบเสร็จ (ไม่บังคับ)<input type="file" accept="image/*" id="atSlip"></label>${AT.slip?`<img class="slip" data-slip="${esc(AT.slip)}" src="" alt="สลิปที่แนบ">`:''}`:''}
+    ${t==='in'&&AT.cat==='loan'?`<div class="note">เงินที่ยืมมาจะไม่นับเป็นรายได้ในการคิดคะแนนพร้อมกู้</div>`:''}
+    <button class="btn pri full" data-act="atSave">บันทึกรายการ</button>`));
+}
+function txOpen(id){
+  const t=allTx().find(x=>x.id===id);if(!t)return;const c=CAT[t.cat]||CAT.other;
+  openSheet(sh(`${c.i} ${t.type==='move'?'ย้ายเงิน':esc(c.n)}`,`
+    <div class="big ${t.type==='in'?'in':t.type==='out'?'out':''}">${t.type==='in'?'+':t.type==='out'?'−':''}${fmt(t.amt)} บาท</div>
+    <table class="tbl"><tr><td>วันที่</td><td>${dTH(t.date)} ${t.time||''}</td></tr><tr><td>กระเป๋า</td><td>${esc(wName(t.wallet))}${t.type==='move'?' → '+esc(wName(t.to)):''}</td></tr>${t.note?`<tr><td>โน้ต</td><td>${esc(t.note)}</td></tr>`:''}</table>
+    ${t.slip?`<img class="slip" data-slip="${esc(t.slip)}" src="" alt="สลิป">`:''}
+    ${t.ref?`<div class="note">รายการนี้มาจากเมนูจ่ายเงินคน ถ้าจะยกเลิก ให้ยกเลิกจากประวัติการจ่ายของคนนั้น</div>`:`<div class="row"><button class="btn" style="flex:1" data-act="txEdit" data-id="${t.id}">แก้ไข</button><button class="btn danger" style="flex:1" data-act="txDelAsk" data-id="${t.id}">ลบ</button></div><div id="confirmBox"></div>`}`));
+}
+
+/* person */
+let PE=null;
+function personForm(p){
+  PE=p?{...p}:{id:null,name:'',group:ST.PG,wage:'',allow:''};ST.PE=PE;peRender();
+}
+function peRender(){const p=PE.id;
+  openSheet(sh(p?'แก้ไขข้อมูล':'เพิ่มรายชื่อ',`
+    <label class="f">ชื่อเรียก<input type="text" id="peN" data-bind="PE.name" value="${esc(PE.name)}" placeholder="เช่น พี่เอ" autofocus></label>
+    <div class="seg"><button class="${PE.group==='worker'?'on':''}" data-act="peG" data-g="worker">👷 ลูกน้อง</button><button class="${PE.group==='kid'?'on':''}" data-act="peG" data-g="kid">🧒 ลูก</button></div>
+    <div class="grid2"><label class="f">ค่าแรงต่อวัน (บาท)<input type="number" inputmode="decimal" id="peW" data-bind="PE.wage" value="${esc(PE.wage)}" placeholder="เช่น 400"></label>
+    ${PE.group==='kid'?`<label class="f">ค่าขนมต่อวัน (บาท)<input type="number" inputmode="decimal" id="peA" data-bind="PE.allow" value="${esc(PE.allow)}" placeholder="เช่น 60"></label>`:''}</div>
+    ${PE.group==='kid'?`<div class="hint">ลูกที่ไปช่วยงานพาร์ทไทม์ ใส่ค่าแรงต่อวันเท่าคนงานได้เลย</div>`:''}
+    <button class="btn pri full" data-act="peSave">บันทึก</button>
+    ${p?`<button class="btn danger full" data-act="peDelAsk">ลบรายชื่อนี้</button><div id="confirmBox"></div>`:''}`));
+}
+/* entry */
+let EF=null;
+function entryForm(pid,kind){
+  const p=person(pid);const def=kind==='work'?p.wage:kind==='allow'?p.allow:'';
+  EF={pid,kind,date:today(),amt:def||'',note:''};ST.EF=EF;
+  const title=kind==='work'?(p.group==='kid'?'วันทำงานพาร์ทไทม์':'บันทึกวันทำงาน'):kind==='allow'?'ค่าขนม':'ยืมเงินเขามา';
+  openSheet(sh(`${KIND[kind].i} ${title}`,`
+    <div class="hint">${esc(p.name)}</div>
+    <div class="grid2"><label class="f">วันที่<input type="date" id="efD" data-bind="EF.date" value="${EF.date}"></label><label class="f">จำนวนเงิน (บาท)<input type="number" inputmode="decimal" id="efA" data-bind="EF.amt" value="${esc(EF.amt)}" autofocus></label></div>
+    <label class="f">${kind==='borrow'?'ยืมไปซื้ออะไร':'รายละเอียด (ไม่บังคับ)'}<input type="text" id="efN" data-bind="EF.note" value="" placeholder="${kind==='borrow'?'เช่น ค่าน้ำยาแอร์':kind==='work'?'เช่น งานหอพักซอย 5':''}"></label>
+    ${kind==='borrow'?`<div class="hint">เงินที่ยืมเขามาจะรวมเข้ายอดค้างที่เราต้องคืน</div>`:''}
+    <div class="row"><button class="btn" style="flex:1" data-act="efSave" data-pay="0">บันทึกค้างไว้</button><button class="btn pri" style="flex:1" data-act="efSave" data-pay="1">บันทึกและจ่ายเลย</button></div>`));
+}
+/* pay */
+let PF=null;
+function payForm(pid,onlyIds){
+  const p=person(pid);const un=unpaid(pid);
+  PF={pid,sel:new Set(onlyIds||un.map(e=>e.id)),method:'transfer',date:today(),time:nowT(),place:'',slip:null,ledger:true,wallet:p.group==='kid'?'bank':(wallets().find(w=>w.id==='shop')?'shop':settings().main)};ST.PF=PF;payRender();
+}
+function payRender(){
+  const p=person(PF.pid);const un=unpaid(PF.pid);
+  const tot=un.filter(e=>PF.sel.has(e.id)).reduce((s,e)=>s+num(e.amt),0);
+  openSheet(sh(`เคลียร์ยอด · ${esc(p.name)}`,`
+    <div class="card" style="padding:10px 14px">${un.map(e=>`<label class="entry"><input type="checkbox" data-act="pfSel" data-id="${e.id}" ${PF.sel.has(e.id)?'checked':''}><span class="t"><b>${KIND[e.kind].i} ${dTH(e.date)} · ${KIND[e.kind].n}</b><br><small class="hint">${esc(e.note||'')}</small></span><span class="amt">${fmt(e.amt)}</span></label>`).join('')}</div>
+    <div class="between"><span>รวมที่จะจ่าย</span><span class="big">${fmt(tot)} บาท</span></div>
+    <div class="seg"><button class="${PF.method==='transfer'?'on':''}" data-act="pfM" data-m="transfer">📲 โอน</button><button class="${PF.method==='cash'?'on':''}" data-act="pfM" data-m="cash">💵 เงินสด</button></div>
+    <div class="grid2"><label class="f">วันที่จ่าย<input type="date" id="pfD" data-bind="PF.date" value="${PF.date}"></label><label class="f">เวลา<input type="time" id="pfT" data-bind="PF.time" value="${PF.time}"></label></div>
+    ${PF.method==='cash'?`<label class="f">สถานที่ที่ส่งเงิน<input type="text" id="pfP" data-bind="PF.place" value="${esc(PF.place)}" placeholder="เช่น หน้าร้าน / หน้างานหอพัก"></label>`:''}
+    ${true?`<label class="f">${PF.method==='cash'?'รูปถ่ายตอนส่งเงิน (ไม่บังคับ)':'แนบรูปสลิป'}<input type="file" accept="image/*" id="pfSlip"></label>${PF.slip?`<img class="slip" data-slip="${esc(PF.slip)}" src="" alt="สลิปที่แนบ">`:''}`:''}
+    <label class="row" style="gap:8px"><input type="checkbox" id="pfL" data-bind="PF.ledger" ${PF.ledger?'checked':''} style="width:22px;height:22px;accent-color:var(--good)"> บันทึกเป็นรายจ่ายในบัญชีด้วย</label>
+    <label class="f">จ่ายจากกระเป๋า<select id="pfW" data-bind="PF.wallet">${wallets().map(w=>`<option value="${w.id}" ${PF.wallet===w.id?'selected':''}>${w.icon} ${esc(w.name)}</option>`).join('')}</select></label>
+    <button class="btn pri full" data-act="pfSave" ${tot>0?'':'disabled'}>ยืนยันจ่าย ${fmt(tot)} บาท</button>`));
+}
+function payView(id){
+  const x=allPayments().find(y=>y.id===id);if(!x)return;
+  openSheet(sh('ข้อความสรุป',`
+    <pre class="msg" id="msgText">${esc(x.msg)}</pre>
+    <button class="btn pri full" data-act="copyMsg">📋 คัดลอกข้อความ</button>
+    ${x.slip?`<div class="hint">สลิปที่แนบไว้ (ส่งรูปสลิปจากแอปธนาคารคู่กับข้อความ)</div><img class="slip" data-slip="${esc(x.slip)}" src="" alt="สลิป">`:''}
+    <button class="btn danger full" data-act="payUndoAsk" data-id="${x.id}">ยกเลิกการจ่ายครั้งนี้</button><div id="confirmBox"></div>`));
+}
+/* goal */
+let GF=null;
+function goalForm(){
+  GF={name:'',icon:'🐷',mode:'equal',slot:'100',count:'50'};ST.GF=GF;goalRender();
+}
+function goalRender(){
+  const a=goalAmounts(GF);const total=a.reduce((s,v)=>s+v,0);
+  openSheet(sh('ตารางออมใหม่',`
+    <label class="f">ออมเพื่อ<input type="text" id="gfN" data-bind="GF.name" value="${esc(GF.name)}" placeholder="เช่น กองทุนฉุกเฉิน, ค่าเทอมลูก" autofocus></label>
+    <div class="chips">${['🐷','🎒','🏠','🚗','🧳','🆘','🎁','📱'].map(i=>`<button class="chip ${GF.icon===i?'on':''}" data-act="gfI" data-i="${i}">${i}</button>`).join('')}</div>
+    <div class="seg"><button class="${GF.mode==='equal'?'on':''}" data-act="gfM" data-m="equal">ช่องละเท่ากัน</button><button class="${GF.mode==='step'?'on':''}" data-act="gfM" data-m="step">ไล่ระดับ 1,2,3…</button></div>
+    <div class="grid2"><label class="f">${GF.mode==='equal'?'ช่องละ (บาท)':'ช่องแรก (บาท)'}<input type="number" inputmode="decimal" id="gfS" data-bind="GF.slot" data-live="gf" value="${esc(GF.slot)}"></label><label class="f">จำนวนช่อง<input type="number" inputmode="numeric" id="gfC" data-bind="GF.count" data-live="gf" value="${esc(GF.count)}"></label></div>
+    <div class="res" id="gfout">รวมเมื่อครบ <b>${fmt(total,0)} บาท</b></div>
+    ${GF.mode==='step'?`<div class="hint">เช่น ช่องแรก 10 บาท: ช่องที่ 2 = 20, ช่องที่ 3 = 30 … ฝากช่องไหนก่อนก็ได้</div>`:''}
+    <button class="btn pri full" data-act="gfSave">สร้างตาราง</button>`));
+}
+/* debt */
+let DF=null;
+function debtForm(d){
+  DF=d?{...d}:{id:null,name:'',balance:'',rate:'',monthly:'',count:'',marks:[]};ST.DF=DF;
+  openSheet(sh(d?'แก้ไขหนี้':'เพิ่มหนี้',`
+    <label class="f">ชื่อหนี้<input type="text" id="dfN" data-bind="DF.name" value="${esc(DF.name)}" placeholder="เช่น ผ่อนเครื่องซักผ้า" autofocus></label>
+    <div class="grid2"><label class="f">ยอดคงเหลือ (บาท)<input type="number" inputmode="decimal" id="dfB" data-bind="DF.balance" value="${esc(DF.balance)}"></label><label class="f">ดอกเบี้ย %/ปี<input type="number" inputmode="decimal" id="dfR" data-bind="DF.rate" value="${esc(DF.rate)}" placeholder="0 ถ้าไม่มี"></label>
+    <label class="f">ผ่อนต่อเดือน (บาท)<input type="number" inputmode="decimal" id="dfM" data-bind="DF.monthly" value="${esc(DF.monthly)}"></label><label class="f">จำนวนงวดทั้งหมด<input type="number" inputmode="numeric" id="dfC" data-bind="DF.count" value="${esc(DF.count)}" placeholder="ไม่บังคับ"></label></div>
+    <button class="btn pri full" data-act="dfSave">บันทึก</button>
+    ${d?`<button class="btn danger full" data-act="dfDelAsk">ลบหนี้นี้</button><div id="confirmBox"></div>`:''}`));
+}
+function confirmBox(text,act,id){const b=$('#confirmBox');if(!b)return;b.innerHTML=`<div class="note warn stack"><div>${text}</div><div class="row"><button class="btn danger" data-act="${act}" data-id="${id||''}">ยืนยัน</button><button class="btn" data-act="cancelConfirm">ไม่ใช่</button></div></div>`}
+
+/* ---------- image upload (stored on this phone) ---------- */
+async function uploadImage(file){
+  try{
+    let blob=file;
+    try{const bmp=await createImageBitmap(file);const sc=Math.min(1,1400/Math.max(bmp.width,bmp.height));
+      const cv=document.createElement('canvas');cv.width=Math.round(bmp.width*sc);cv.height=Math.round(bmp.height*sc);cv.getContext('2d').drawImage(bmp,0,0,cv.width,cv.height);
+      blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',.8))||file}catch(e){}
+    const id='img-'+uid();
+    if(!S.idb){toast('แนบรูปไม่ได้ในเบราว์เซอร์นี้');return null}
+    await IDB.put('blobs',id,blob);toast('แนบรูปแล้ว');return id;
+  }catch(e){toast('แนบรูปไม่สำเร็จ ลองอีกครั้ง');return null}
+}
+
+/* ---------- export ---------- */
+function saveFile(name,data,type){
+  const url=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type}));
+  const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);toast('ดาวน์โหลดแล้ว ดูได้ในโฟลเดอร์ดาวน์โหลด');
+}
+function printHTML(html){
+  const f=document.createElement('iframe');f.style.cssText='position:fixed;width:0;height:0;border:0;right:0;bottom:0';document.body.appendChild(f);
+  f.onload=()=>{setTimeout(()=>{try{f.contentWindow.focus();f.contentWindow.print()}catch(e){toast('สั่งพิมพ์ไม่ได้ ลองดาวน์โหลดรายงานแทน')}setTimeout(()=>f.remove(),60000)},300)};
+  f.srcdoc=html;
+}
+const blobToDataURL=b=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(b)});
+function reportHTML(m){
+  const st=monthStats(m);const end=lastDay(m);const items=st.items.slice().sort((a,b)=>(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));
+  const rows=items.map(t=>`<tr><td>${dTH(t.date)}</td><td>${esc(CAT[t.cat]?.n||'')}</td><td>${esc(wName(t.wallet))}</td><td>${esc(t.note||'')}</td><td class="r">${t.type==='in'?fmt(t.amt):''}</td><td class="r">${t.type==='out'?fmt(t.amt):''}</td></tr>`).join('');
+  return `<!doctype html><html lang="th"><head><meta charset="utf-8"><title>รายงานรายรับรายจ่าย ${mTH(m)}</title><style>body{font-family:'Sarabun','Tahoma',sans-serif;color:#222;margin:32px;font-size:14px}h1{font-size:22px;margin:0}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid #bbb;padding:5px 7px;text-align:left}th{background:#f3f3f3}.r{text-align:right}.sum td{font-weight:bold}.muted{color:#666}</style></head><body>
+  <h1>รายงานรายรับ–รายจ่าย ประจำเดือน${mTH(m)}</h1><p class="muted">จัดทำจากแอปกระปุกเจี๊ยบ · พิมพ์เมื่อ ${dTH(today())}</p>
+  <table><tr><th>รายรับรวม</th><th>รายจ่ายรวม</th><th>คงเหลือสุทธิ</th></tr><tr><td class="r">${fmt(st.i)}</td><td class="r">${fmt(st.o)}</td><td class="r">${fmt(st.net)}</td></tr></table>
+  <h3>ยอดคงเหลือแต่ละกระเป๋า ณ ${dTH(end)}</h3><table>${wallets().map(w=>`<tr><td>${esc(w.name)}</td><td class="r">${fmt(balanceAt(w.id,end))}</td></tr>`).join('')}</table>
+  <h3>รายการทั้งหมด</h3><table><tr><th>วันที่</th><th>หมวด</th><th>กระเป๋า</th><th>รายละเอียด</th><th>รายรับ</th><th>รายจ่าย</th></tr>${rows}<tr class="sum"><td colspan="4">รวม</td><td class="r">${fmt(st.i)}</td><td class="r">${fmt(st.o)}</td></tr></table>
+  </body></html>`;
+}
+
+/* ---------- actions ---------- */
+const ACT={
+  back:()=>{location.hash='#menu'},
+  close:()=>closeSheet(),
+  addTx:()=>atNew(),
+  lm:t=>{ST.LM=shiftYM(ST.LM,+t.dataset.k);render()},
+  lw:t=>{ST.LW=t.dataset.w;render()},
+  txOpen:t=>txOpen(t.dataset.id),
+  txEdit:t=>{const x=allTx().find(y=>y.id===t.dataset.id);x&&atNew(x)},
+  txDelAsk:t=>confirmBox('ลบรายการนี้ใช่ไหม','txDel',t.dataset.id),
+  txDel:t=>{delTx(t.dataset.id);closeSheet();render();toast('ลบแล้ว')},
+  cancelConfirm:()=>{const b=$('#confirmBox');if(b)b.innerHTML=''},
+  atType:t=>{AT.type=t.dataset.t;if(t.dataset.t!=='move')AT.cat=CATS[t.dataset.t][0][0];atRender()},
+  atCat:t=>{AT.cat=t.dataset.c;atRender()},
+  atSave:()=>{
+    const a=num(AT.amt);if(!(a>0)){toast('กรอกจำนวนเงินก่อนนะคะ');$('#atAmt')?.focus();return}
+    if(AT.type==='move'&&AT.wallet===AT.to){toast('เลือกกระเป๋าปลายทางให้ต่างกัน');return}
+    const t={id:AT.editId||uid(),type:AT.type,cat:AT.type==='move'?'move':AT.cat,amt:a,wallet:AT.wallet,date:AT.date||today(),time:AT.time||'',note:AT.note||''};
+    if(AT.type==='move')t.to=AT.to;if(AT.slip)t.slip=AT.slip;
+    if(AT.editId)delTx(AT.editId);
+    addTx(t);closeSheet();render();toast('บันทึกแล้ว');
+  },
+  vcAdd:()=>{ST.VC.items.push({name:'ตัวเลือกที่ '+(ST.VC.items.length+1),price:'',size:'',qty:'1',unit:ST.VC.items[0].unit});render()},
+  vcDel:t=>{ST.VC.items.splice(+t.dataset.i,1);render()},
+  slot:t=>{const g=D('savings').goals.find(x=>x.id===t.dataset.id);const i=+t.dataset.i;g.marks=g.marks||[];const k=g.marks.indexOf(i);
+    if(k>=0)g.marks.splice(k,1);else g.marks.push(i);save('savings');
+    const on=k<0;t.classList.toggle('on',on);t.setAttribute('aria-pressed',on);
+    if(on){const a=goalAmounts(g);toast(`ฝากแล้ว ${fmt(a[i],0)} บาท · รวม ${fmt(goalSaved(g),0)} บาท`)}
+    setTimeout(render,250)},
+  goalNew:()=>goalForm(),
+  gfI:t=>{GF.icon=t.dataset.i;goalRender()},
+  gfM:t=>{GF.mode=t.dataset.m;if(GF.mode==='step'&&num(GF.slot)>=100){GF.slot='10'}goalRender()},
+  gfSave:()=>{const n=Math.round(num(GF.count));if(!GF.name.trim()){toast('ตั้งชื่อเป้าหมายก่อนนะคะ');return}if(!(n>0&&n<=400&&num(GF.slot)>0)){toast('จำนวนช่อง 1–400 และใส่จำนวนเงินต่อช่อง');return}
+    D('savings').goals.unshift({id:uid(),name:GF.name.trim(),icon:GF.icon,mode:GF.mode,slot:num(GF.slot),count:n,marks:[],created:today()});save('savings');closeSheet();render()},
+  goalMenu:t=>{const g=D('savings').goals.find(x=>x.id===t.dataset.id);openSheet(sh(esc(g.name),`<button class="btn full" data-act="goalReset" data-id="${g.id}">ล้างกากบาททั้งหมด</button><button class="btn danger full" data-act="goalDelAsk" data-id="${g.id}">ลบตารางนี้</button><div id="confirmBox"></div>`))},
+  goalReset:t=>confirmBox('ล้างกากบาททั้งหมดของตารางนี้ใช่ไหม','goalResetOk',t.dataset.id),
+  goalResetOk:t=>{const g=D('savings').goals.find(x=>x.id===t.dataset.id);g.marks=[];save('savings');closeSheet();render()},
+  goalDelAsk:t=>confirmBox('ลบตารางออมนี้ใช่ไหม ลบแล้วกู้คืนไม่ได้','goalDel',t.dataset.id),
+  goalDel:t=>{const s=D('savings');s.goals=s.goals.filter(x=>x.id!==t.dataset.id);save('savings');closeSheet();render()},
+  pg:t=>{ST.PG=t.dataset.g;render()},
+  toggle:t=>{ST.open[t.dataset.id]=!ST.open[t.dataset.id];render()},
+  personNew:()=>personForm(),
+  personEdit:t=>personForm(person(t.dataset.id)),
+  peG:t=>{PE.group=t.dataset.g;peRender()},
+  peSave:()=>{if(!PE.name.trim()){toast('ใส่ชื่อก่อนนะคะ');return}
+    const list=people();const rec={id:PE.id||uid(),name:PE.name.trim(),group:PE.group,wage:num(PE.wage),allow:num(PE.allow)};
+    const i=list.findIndex(p=>p.id===rec.id);if(i>=0)list[i]=rec;else list.push(rec);ST.PG=rec.group;save('people');closeSheet();render()},
+  peDelAsk:()=>confirmBox(owed(PE.id)>0?'คนนี้ยังมียอดค้าง ลบรายชื่อแล้วรายการค้างจะถูกซ่อน ยืนยันไหม':'ลบรายชื่อนี้ใช่ไหม','peDel',PE.id),
+  peDel:t=>{const d=D('people');d.list=d.list.filter(p=>p.id!==t.dataset.id);save('people');closeSheet();render()},
+  entryNew:t=>entryForm(t.dataset.id,t.dataset.k),
+  efSave:t=>{const a=num(EF.amt);if(!(a>0)){toast('ใส่จำนวนเงินก่อนนะคะ');return}
+    const e={id:uid(),pid:EF.pid,kind:EF.kind,date:EF.date||today(),amt:a,note:(EF.note||'').trim(),paid:null};
+    const k='pay-'+e.date.slice(0,4);D(k).entries.push(e);save(k);
+    if(t.dataset.pay==='1'){payForm(EF.pid,[e.id])}else{closeSheet();render();toast('บันทึกยอดค้างแล้ว')}},
+  entryDel:t=>{for(const k of Object.keys(S.docs))if(k.startsWith('pay-')){const es=S.docs[k].entries;const i=es.findIndex(e=>e.id===t.dataset.id&&!e.paid);if(i>=0){es.splice(i,1);save(k);break}}render()},
+  payOpen:t=>payForm(t.dataset.id),
+  pfSel:t=>{t.checked?PF.sel.add(t.dataset.id):PF.sel.delete(t.dataset.id);payRender()},
+  pfM:t=>{PF.method=t.dataset.m;payRender()},
+  pfSave:()=>{
+    const p=person(PF.pid);const ents=unpaid(PF.pid).filter(e=>PF.sel.has(e.id));if(!ents.length)return;
+    const amt=ents.reduce((s,e)=>s+num(e.amt),0);
+    const pay={id:uid(),pid:PF.pid,date:PF.date||today(),time:PF.time||nowT(),method:PF.method,place:PF.method==='cash'?(PF.place||'').trim():'',slip:PF.slip||null,amt,entryIds:ents.map(e=>e.id),txIds:[]};
+    const touched=new Set();
+    for(const k of Object.keys(S.docs))if(k.startsWith('pay-'))for(const e of S.docs[k].entries)if(PF.sel.has(e.id)&&!e.paid){e.paid=pay.id;touched.add(k)}
+    if(PF.ledger){const by={};for(const e of ents){const c=e.kind==='work'?'wage':e.kind==='allow'?'kids':'repay';by[c]=(by[c]||0)+num(e.amt)}
+      for(const[c,v]of Object.entries(by)){const tx=addTx({type:'out',cat:c,amt:v,wallet:PF.wallet,date:pay.date,time:pay.time,note:`จ่าย ${p.name}`,ref:pay.id,slip:pay.slip||undefined});pay.txIds.push(tx.id)}}
+    const remain=owed(PF.pid);
+    pay.msg=buildMsg(p,ents,pay,remain);
+    const pk='pay-'+pay.date.slice(0,4);D(pk).payments.push(pay);touched.add(pk);
+    touched.forEach(save);
+    dirty=true;payView(pay.id);
+  },
+  payView:t=>payView(t.dataset.id),
+  copyMsg:async()=>{const tx=$('#msgText').textContent;
+    try{await navigator.clipboard.writeText(tx);toast('คัดลอกแล้ว ไปวางใน LINE ได้เลย')}
+    catch(e){const r=document.createRange();r.selectNodeContents($('#msgText'));const s=getSelection();s.removeAllRanges();s.addRange(r);toast('เลือกข้อความไว้แล้ว กดค้างแล้วเลือก “คัดลอก”')}},
+  payUndoAsk:t=>confirmBox('ยกเลิกการจ่ายครั้งนี้ใช่ไหม ยอดจะกลับไปเป็นค้างจ่าย และรายจ่ายในบัญชีที่สร้างไว้จะถูกลบ','payUndo',t.dataset.id),
+  payUndo:t=>{const id=t.dataset.id;let pay=null;
+    for(const k of Object.keys(S.docs))if(k.startsWith('pay-')){const ps=S.docs[k].payments;const i=ps.findIndex(x=>x.id===id);if(i>=0){pay=ps[i];ps.splice(i,1);save(k)}
+      let ch=false;for(const e of S.docs[k].entries)if(e.paid===id){e.paid=null;ch=true}if(ch)save(k)}
+    if(pay)(pay.txIds||[]).forEach(delTx);closeSheet();render();toast('ยกเลิกแล้ว')},
+  debtNew:()=>debtForm(),
+  debtEdit:t=>debtForm(D('debts').list.find(d=>d.id===t.dataset.id)),
+  dfSave:()=>{if(!DF.name.trim()){toast('ตั้งชื่อหนี้ก่อนนะคะ');return}
+    const list=D('debts').list;const rec={id:DF.id||uid(),name:DF.name.trim(),balance:num(DF.balance),rate:num(DF.rate),monthly:num(DF.monthly),count:Math.min(240,Math.round(num(DF.count)))||0,marks:(DF.marks||[]).filter(i=>i<(num(DF.count)||0))};
+    const i=list.findIndex(d=>d.id===rec.id);if(i>=0)list[i]=rec;else list.push(rec);save('debts');closeSheet();render()},
+  dfDelAsk:()=>confirmBox('ลบหนี้นี้ใช่ไหม','dfDel',DF.id),
+  dfDel:t=>{const d=D('debts');d.list=d.list.filter(x=>x.id!==t.dataset.id);save('debts');closeSheet();render()},
+  debtSlot:t=>{const d=D('debts').list.find(x=>x.id===t.dataset.id);const i=+t.dataset.i;d.marks=d.marks||[];const k=d.marks.indexOf(i);if(k>=0)d.marks.splice(k,1);else d.marks.push(i);save('debts');render()},
+  saveRecon:()=>{const v=$('#rcBank').value;const r=D('recon');r.m[ST.RP]={bank:v===''?null:num(v),at:today()};save('recon');render();toast('บันทึกยอดจริงแล้ว')},
+  printReport:()=>printHTML(reportHTML(ST.RP)),
+  install:async()=>{if(!window._bip){toast('กดจุด 3 จุดของ Chrome แล้วเลือก “ติดตั้งแอป” หรือ “เพิ่มลงในหน้าจอหลัก”');return}window._bip.prompt();try{await window._bip.userChoice}catch(e){}window._bip=null;render()},
+  exportReport:()=>saveFile(`รายงาน-${ST.RP}.html`,reportHTML(ST.RP),'text/html'),
+  exportCSV:()=>{const st=monthStats(ST.RP);const rows=[['วันที่','เวลา','ประเภท','หมวด','กระเป๋า','รายละเอียด','จำนวนเงิน']].concat(st.items.map(t=>[t.date,t.time||'',t.type==='in'?'รายรับ':'รายจ่าย',CAT[t.cat]?.n||'',wName(t.wallet),t.note||'',t.amt]));
+    saveFile(`บัญชี-${ST.RP}.csv`,'﻿'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n'),'text/csv')},
+  exportJSON:async()=>{const blobs={};if(S.idb){try{const all=await IDB.all('blobs');for(const[k,v]of Object.entries(all))blobs[k]=await blobToDataURL(v)}catch(e){}}
+    settings().lastBackup=today();save('settings');
+    saveFile(`kapook-jeab-backup-${today()}.json`,JSON.stringify({app:'kapook-jeab',v:1,exported:new Date().toISOString(),docs:S.docs,blobs}),'application/json');render()},
+  importOk:async()=>{const docs=ACT._import;if(!docs)return;S.docs=docs;
+    if(S.idb){try{await IDB.clear('docs')}catch(e){}for(const[k,v]of Object.entries(ACT._importBlobs||{})){try{const b=await (await fetch(v)).blob();await IDB.put('blobs',k,b)}catch(e){}}}
+    Object.keys(docs).forEach(save);cache();closeSheet();render();toast('นำข้อมูลกลับมาแล้ว')},
+  connect:async()=>{
+    const url=($('#gsUrl').value||'').trim(),key=($('#gsKey').value||'').trim(),msg=$('#gsMsg');
+    if(!/^https:\/\/script\.google(usercontent)?\.com\//.test(url)||!/\/exec(\?|$)/.test(url)){msg.innerHTML='<div class="note warn">ลิงก์ต้องขึ้นต้นด้วย https://script.google.com/macros/s/ และลงท้ายด้วย /exec</div>';return}
+    if(!key){msg.innerHTML='<div class="note warn">ใส่รหัสลับก่อนนะคะ</div>';return}
+    if(!navigator.onLine){msg.innerHTML='<div class="note warn">ต้องต่อเน็ตตอนเชื่อมครั้งแรก</div>';return}
+    msg.innerHTML='<div class="note">กำลังทดสอบ…</div>';
+    try{const r=await api({action:'ping'},{url,key});
+      META.conn={url,key,name:r.name||''};META.since=0;META.lastErr='';
+      for(const id of Object.keys(S.docs))if(S.docs[id]&&S.docs[id]._u)META.outbox[id]=1;
+      saveMeta();toast('เชื่อมต่อสำเร็จ กำลังซิงก์…');render();await syncNow({full:true});render();
+    }catch(e){msg.innerHTML=`<div class="note warn">${esc(errText(e))}</div>`}
+  },
+  syncNow:async()=>{const ok=await syncNow();toast(ok?'ซิงก์เรียบร้อย':(META.lastErr||'ซิงก์ไม่สำเร็จ'));render()},
+  pullAll:async()=>{META.since=0;saveMeta();const ok=await syncNow({full:true});toast(ok?'ดึงข้อมูลจาก Sheet แล้ว':(META.lastErr||'ไม่สำเร็จ'));render()},
+  disconnectAsk:()=>confirmBox('เลิกเชื่อมต่อกับ Google Sheet ใช่ไหม ข้อมูลในเครื่องและในชีตยังอยู่ครบ','disconnect'),
+  disconnect:()=>{META.conn=null;META.lastErr='';saveMeta();setSync();render();toast('เลิกเชื่อมต่อแล้ว')},
+  resetOpen:()=>{openSheet(sh('🧹 เริ่มต้นใหม่',`
+    <div class="hint">เลือกสิ่งที่จะล้าง</div>
+    <div class="card stack" style="padding:12px 14px">
+      ${[['rsTx','รายการบัญชีทั้งหมด และยอดกระทบยอด'],['rsPeople','รายชื่อลูกน้องและลูกๆ ยอดค้าง และประวัติการจ่าย'],['rsSave','ตารางออมทั้งหมด'],['rsDebt','หนี้ทั้งหมด'],['rsWallet','กระเป๋าเงินกลับเป็นค่าเริ่มต้น (ยอดตั้งต้น 0)']].map(([id,t])=>`<label class="row" style="gap:10px;flex-wrap:nowrap"><input type="checkbox" id="${id}" checked style="width:22px;height:22px;accent-color:var(--bad);flex:none"> <span>${t}</span></label>`).join('')}
+    </div>
+    ${META.conn?'<div class="note">จะล้างใน Google Sheet ด้วย ถ้าตอนนี้ไม่มีเน็ต แอปจะล้างให้เมื่อมีเน็ต</div>':''}
+    <div class="note warn">ก่อนล้าง แอปจะดาวน์โหลดไฟล์สำรองให้ 1 ไฟล์ เก็บไว้เผื่อต้องการข้อมูลคืน</div>
+    <label class="f">พิมพ์คำว่า <b>ล้างข้อมูล</b> เพื่อยืนยัน<input type="text" id="rsConfirm" autocomplete="off"></label>
+    <button class="btn danger full" data-act="resetGo">ล้างข้อมูลที่เลือก</button>`))},
+  resetGo:async()=>{
+    if(($('#rsConfirm').value||'').trim()!=='ล้างข้อมูล'){toast('พิมพ์คำว่า “ล้างข้อมูล” ให้ตรงก่อนนะคะ');$('#rsConfirm').focus();return}
+    const pick={tx:$('#rsTx').checked,people:$('#rsPeople').checked,save:$('#rsSave').checked,debt:$('#rsDebt').checked,wallet:$('#rsWallet').checked};
+    if(!Object.values(pick).some(Boolean)){toast('ยังไม่ได้เลือกอะไรเลย');return}
+    await ACT.exportJSON();
+    const keys=Object.keys(S.docs);
+    if(pick.tx){for(const k of keys)if(k.startsWith('tx-')){S.docs[k]={items:[]};save(k)}S.docs.recon={m:{}};save('recon')}
+    if(pick.people){S.docs.people={list:[]};save('people');for(const k of keys)if(k.startsWith('pay-')){S.docs[k]={entries:[],payments:[]};save(k)}ST.open={}}
+    if(pick.save){S.docs.savings={goals:[]};save('savings')}
+    if(pick.debt){S.docs.debts={list:[]};save('debts')}
+    if(pick.wallet){const st=settings();st.wallets=structuredClone(DEF.settings.wallets);st.main='bank';save('settings')}
+    if(Object.values(pick).every(Boolean)&&S.idb){try{await IDB.clear('blobs')}catch(e){}for(const k in BLOBURL){URL.revokeObjectURL(BLOBURL[k]);delete BLOBURL[k]}S.docs.slips={map:{}};save('slips')}
+    closeSheet();location.hash='#home';render();toast('ล้างข้อมูลเรียบร้อย เริ่มต้นใหม่ได้เลย');
+  },
+  walletAdd:()=>{settings().wallets.push({id:uid(),name:'กระเป๋าใหม่',icon:'💳',open:0});save('settings');render()},
+  walletSave:()=>{const s=settings();s.wallets.forEach((w,i)=>{w.name=($('#wn'+i).value||w.name).trim();w.open=num($('#wo'+i).value)});const r=document.querySelector('input[name=mainw]:checked');if(r)s.main=r.value;save('settings');render();toast('บันทึกแล้ว')}
+};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=ACT[t.dataset.act];if(f){if(t.tagName==='BUTTON'||t.tagName==='A')e.preventDefault();f(t,e)}});
+document.addEventListener('input',e=>{const el=e.target;if(el.dataset.bind){setPath(el.dataset.bind,el.type==='checkbox'?el.checked:el.value);const l=el.dataset.live;
+  if(l==='vc')vcOut();else if(l==='vcAll')render();else if(l==='lc')lcOut();else if(l==='dx')dxOut();else if(l==='gf'){const a=goalAmounts(GF);$('#gfout').innerHTML=`รวมเมื่อครบ <b>${fmt(a.reduce((s,v)=>s+v,0),0)} บาท</b>`}}});
+document.addEventListener('change',async e=>{const el=e.target;
+  if(el.dataset.bind&&(el.tagName==='SELECT'||el.type==='checkbox')){setPath(el.dataset.bind,el.type==='checkbox'?el.checked:el.value);if(el.dataset.live==='vcAll')render();else if(el.dataset.live==='vc')vcOut();else if(el.dataset.live==='lc')lcOut()}
+  if(el.id==='rpM'&&el.value){ST.RP=el.value;render()}
+  if(el.id==='atSlip'&&el.files[0]){const id=await uploadImage(el.files[0]);if(id){AT.slip=id;atRender()}}
+  if(el.id==='pfSlip'&&el.files[0]){const id=await uploadImage(el.files[0]);if(id){PF.slip=id;payRender()}}
+  if(el.id==='importFile'&&el.files[0]){try{const j=JSON.parse(await el.files[0].text());if(!j||j.app!=='kapook-jeab'||!j.docs)throw 0;ACT._import=j.docs;ACT._importBlobs=j.blobs||{};
+    openSheet(sh('นำข้อมูลกลับมา',`<div>ไฟล์สำรองวันที่ ${esc((j.exported||'').slice(0,10))} · ${Object.keys(j.docs).filter(k=>k.startsWith('tx-')).length} เดือนที่มีรายการ</div><div class="note warn">ข้อมูลในแอปตอนนี้จะถูกแทนที่ด้วยข้อมูลในไฟล์ทั้งหมด</div><button class="btn danger full" data-act="importOk">ยืนยันนำข้อมูลกลับมา</button>`))}
+    catch(err){toast('ไฟล์นี้ไม่ใช่ไฟล์สำรองของกระปุกเจี๊ยบ')}el.value=''}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#sheet').hidden)closeSheet()});
+document.addEventListener('focusout',()=>{setTimeout(()=>{if(dirty&&$('#sheet').hidden){const a=document.activeElement;if(!(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)))render()}},300)});
+
+/* ---------- boot ---------- */
+setSync();initStore();
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();window._bip=e;if(route()==='backup'||route()==='menu')render()});
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
